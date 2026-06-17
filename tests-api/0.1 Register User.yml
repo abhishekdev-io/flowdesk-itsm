@@ -1,0 +1,37 @@
+info:
+  name: 0.1 Register User
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/auth/register"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "testuser@flowdesk.com",
+        "username": "testuser",
+        "avatarUrl": "https://api.dicebear.com/7.x/bottts/svg?seed=testuser",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Ensure registration was successful before extracting the token
+        if (res.getStatus() === 200 || res.getStatus() === 201) {
+            const data = res.getBody();
+            
+            // Captures the token string from your response and saves it to the environment placeholder
+            bru.setEnvVar("token", data.token);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

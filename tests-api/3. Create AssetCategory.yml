@@ -1,0 +1,29 @@
+info:
+  name: 3. Create AssetCategory
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/workspaces/{{workspaceId}}/categories"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Hardware Issues"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.getStatus() === 201 || res.getStatus() === 200) {
+            bru.setEnvVar("categoryId", res.getBody().id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

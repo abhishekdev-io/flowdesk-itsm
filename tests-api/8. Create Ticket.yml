@@ -1,0 +1,37 @@
+info:
+  name: 8. Create Ticket
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/workspaces/{{workspaceId}}/tickets"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Production Database Slowdown",
+        "description": "The read-replicas are experiencing massive CPU spikes during query execution.",
+        "assetId": "{{assetId}}",
+        "type": "Incident",
+        "priority": "High"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Ensure the ticket was successfully created before setting variables
+        if (res.getStatus() === 201 || res.getStatus() === 200) {
+            const data = res.getBody();
+            
+            // Captures the ticket id and saves it to the environment placeholder
+            bru.setEnvVar("ticketId", data.id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

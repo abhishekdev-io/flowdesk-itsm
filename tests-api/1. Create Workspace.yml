@@ -1,0 +1,34 @@
+info:
+  name: 1. Create Workspace
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/workspaces"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Dev Workspace",
+        "description": "Main workspace for core backend ticket tracking."
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        // Ensure the workspace was successfully created before setting variables
+        if (res.getStatus() === 201 || res.getStatus() === 200) {
+            const data = res.getBody();
+            
+            // Captures the 'id' field from your controller's response
+            bru.setEnvVar("workspaceId", data.id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

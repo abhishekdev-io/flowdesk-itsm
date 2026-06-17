@@ -1,0 +1,33 @@
+info:
+  name: 5. Create Asset
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/workspaces/{{workspaceId}}/assets"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "MacBook Pro 16 Inch",
+        "categoryId": "{{categoryId}}"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.getStatus() === 201 || res.getStatus() === 200) {
+            const data = res.getBody();
+            
+            // Captures the asset id and updates your environment variable placeholder
+            bru.setEnvVar("assetId", data.id);
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
