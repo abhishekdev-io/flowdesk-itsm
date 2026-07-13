@@ -20,4 +20,4 @@ public record TicketDetailsResponse(
     DateTime? UpdatedAt,
     DateTime? SlaDeadlineAt
 );
- 
+   

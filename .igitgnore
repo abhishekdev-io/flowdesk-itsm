@@ -30,6 +30,31 @@
 _bundles/
 *.user.config
 
+# ==========================================
+# 🧪 Testing
+# ==========================================
+
+# Visual Studio Test Results
+TestResults/
+**/TestResults/
+
+# Coverlet coverage reports
+coverage.cobertura.xml
+coverage.opencover.xml
+coverage.json
+coverage.info
+coverage.xml
+
+# Generic coverage files
+*.coverage
+*.coveragexml
+
+# DotCover
+*.dcvr
+
+# BenchmarkDotNet
+BenchmarkDotNet.Artifacts/
+
 ## ==========================================
 ## 📦 Frontend (React / Vite / Next.js)
 ## ==========================================

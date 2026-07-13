@@ -22,3 +22,5 @@ public interface IApplicationDbContext
     DbSet<WorkspaceUserView> WorkspaceUsersView { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
+
+

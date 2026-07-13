@@ -10,7 +10,6 @@ public class UpdateAssetCommandHandler(
     public async Task<Unit> Handle(UpdateAssetCommand request, CancellationToken cancellationToken)
     {
         var asset = await context.Assets
-            .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == request.AssetId && a.WorkspaceId == request.WorkspaceId, cancellationToken)
                 ?? throw new NotFoundException("asset", request.AssetId);;
 

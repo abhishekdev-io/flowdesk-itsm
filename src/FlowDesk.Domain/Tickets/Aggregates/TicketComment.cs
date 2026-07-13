@@ -2,7 +2,7 @@ using FlowDesk.Domain.Primitives;
 using FlowDesk.Domain.Exceptions;
 
 namespace FlowDesk.Domain.Tickets.Aggregates;
-
+ 
 public sealed class TicketComment : Entity<Guid>
 {
     public Guid TicketId { get; private set; }

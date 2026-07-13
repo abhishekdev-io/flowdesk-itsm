@@ -8,4 +8,4 @@ public record AssignTicketCommand(
     Guid TicketId,
     Guid AssigneeId,
     Guid WorkspaceId
-) : IRequest<Unit>,IWorkspaceRequest;
+) : IRequest<Unit>,IWorkspaceRequest; 

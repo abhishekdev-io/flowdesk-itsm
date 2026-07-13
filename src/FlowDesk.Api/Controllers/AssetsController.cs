@@ -10,7 +10,7 @@ using FlowDesk.Application.Features.Assets.UpdateAsset;
 using FlowDesk.Application.Common.Pagination;
 
 namespace FlowDesk.Api.Controllers;
-
+ 
 [Authorize]
 [ApiController]
 [Route("api/workspaces/{workspaceId}/assets")]

@@ -5,7 +5,7 @@ using FlowDesk.Application.Interface;
 
 namespace FlowDesk.Application.Behaviours;
 
-internal sealed class PermissionBehaviour<TRequest, TResponse>(
+public sealed class PermissionBehaviour<TRequest, TResponse>(
     PermissionService permissionService
 ) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IWorkspaceRequest

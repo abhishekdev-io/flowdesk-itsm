@@ -8,7 +8,7 @@ using FlowDesk.Application.Features.AssetCategories.ListDeactivatedAssetCategori
 using FlowDesk.Api.Dto.AssetCategory;
 
 namespace FlowDesk.Api.Controllers;
-
+ 
 [Authorize]
 [ApiController]
 [Route("api/workspaces/{workspaceId}/categories")]

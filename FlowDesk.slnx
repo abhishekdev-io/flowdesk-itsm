@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/tests/">
+    <Project Path="tests/FlowDesk.Application.IntegrationTests/FlowDesk.Application.IntegrationTests.csproj" />
+    <Project Path="tests/FlowDesk.Application.UnitTests/FlowDesk.Application.UnitTests.csproj" />
     <Project Path="tests/FlowDesk.Architecture.Tests/FlowDesk.Architecture.Tests.csproj" />
     <Project Path="tests/FlowDesk.Domain.UnitTests/FlowDesk.Domain.UnitTests.csproj" />
   </Folder>

@@ -3,7 +3,7 @@ using FlowDesk.Application.Interface;
 
 namespace FlowDesk.Application.Behaviours;
 
-internal sealed class AuthorizationBehaviour<TRequest, TResponse>(
+public sealed class AuthorizationBehaviour<TRequest, TResponse>(
     ICurrentUserContext currentUserContext,
     ICurrentWorkspaceContext workspaceContext,
     IApplicationDbContext context
@@ -30,3 +30,4 @@ internal sealed class AuthorizationBehaviour<TRequest, TResponse>(
         return await next(cancellationToken);
     }
 }
+ 

@@ -16,3 +16,4 @@ public record TicketSummaryResponse(
     DateTime? ArchivedAt,
     DateTime CreatedAt
 );
+ 

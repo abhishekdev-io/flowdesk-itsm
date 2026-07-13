@@ -23,22 +23,6 @@ public static class AuthExtension
                     ValidAudience = config["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:SecretKey"]!))
                 };
-                // options.Events = new JwtBearerEvents
-                // {
-                //     OnTokenValidated = context =>
-                //     {
-                //         Console.WriteLine("TOKEN VALIDATED");
-                //         return Task.CompletedTask;
-                //     },
-
-                //     OnAuthenticationFailed = context =>
-                //     {
-                //         Console.WriteLine("AUTH FAILED");
-                //         Console.WriteLine(context.Exception);
-                //         return Task.CompletedTask;
-                //     }
-                // };
             });
-
     }
 }

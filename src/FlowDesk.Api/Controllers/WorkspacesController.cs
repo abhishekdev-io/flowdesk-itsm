@@ -43,7 +43,7 @@ public class WorkspacesController(IMediator mediator) : ControllerBase
             cancellationToken);
             
         return Ok(result);
-    }
+    } 
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]

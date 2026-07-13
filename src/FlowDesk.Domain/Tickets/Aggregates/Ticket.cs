@@ -5,7 +5,7 @@ using FlowDesk.Domain.Workspaces.Enums;
 using FlowDesk.Domain.Assets;
 
 namespace FlowDesk.Domain.Tickets.Aggregates;
-
+ 
 public sealed class Ticket : AggregateRoot<Guid>
 {
     public TicketTitle Title { get; private set; } = null!;
@@ -347,7 +347,7 @@ public sealed class Ticket : AggregateRoot<Guid>
             OldPriority: oldPriority,
             NewPriority: Priority));
     }
-
+ 
     // Ticket Type Change
     public void ChangeType(TicketType type, Guid changedByUserId)
     {

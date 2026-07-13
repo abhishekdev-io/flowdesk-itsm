@@ -25,5 +25,5 @@ public class CreateTicketCommandHandler(
 
         return ticket.Id;
     }
-
 }
+ 

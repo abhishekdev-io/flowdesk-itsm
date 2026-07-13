@@ -15,7 +15,7 @@ public sealed class Workspace : AggregateRoot<Guid>
 
     private readonly List<WorkspaceMember> _workspaceMembers = [];
     public IReadOnlyCollection<WorkspaceMember> WorkspaceMembers => _workspaceMembers;
-
+ 
     private Workspace() : base(Guid.Empty) { }
 
     public void Delete()

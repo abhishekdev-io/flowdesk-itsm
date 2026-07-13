@@ -74,7 +74,7 @@ public class TicketsController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("sla-summary")]
+    [HttpGet("sla-dashboard")]
     [ProducesResponseType(typeof(TicketDetailsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetSlaSummaryAsync(
@@ -230,7 +230,7 @@ public class TicketsController(IMediator mediator) : ControllerBase
             workspaceId);
 
         await mediator.Send(command, cancellationToken);
-        return NoContent();
+        return NoContent(); 
     }
 
     [HttpPatch("{ticketId}/close")]

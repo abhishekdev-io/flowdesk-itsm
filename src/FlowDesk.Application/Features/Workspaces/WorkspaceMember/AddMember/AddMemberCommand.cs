@@ -11,3 +11,4 @@ public record AddMemberCommand(
     Guid WorkspaceId,
     WorkspaceRole Role
 ) : IRequest<Unit>,IWorkspaceRequest;
+ 

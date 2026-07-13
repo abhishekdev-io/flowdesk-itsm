@@ -14,7 +14,7 @@ public sealed class TicketActivity : Entity<Guid>
 
     public Ticket Ticket { get; private set; } = null!;
 
-    private TicketActivity() : base(Guid.Empty) { }
+    private TicketActivity() : base(Guid.Empty) { } 
 
     public static TicketActivity Create(
         Guid ticketId,

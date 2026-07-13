@@ -8,4 +8,4 @@ public record CloseTicketCommand(
     Guid TicketId,
     string? Reason,
     Guid WorkspaceId
-) : IRequest<Unit>,IWorkspaceRequest;
+) : IRequest<Unit>,IWorkspaceRequest; 
