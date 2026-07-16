@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 
 namespace FlowDesk.Infrastructure.Identity.Context;
 

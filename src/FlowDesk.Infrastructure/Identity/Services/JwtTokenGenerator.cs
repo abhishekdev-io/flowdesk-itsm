@@ -1,25 +1,34 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using FlowDesk.Application.Interfaces;
+using FlowDesk.Infrastructure.Identity.Config;
 using FlowDesk.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FlowDesk.Infrastructure.Identity.Services;
 
-public class JwtTokenGenerator
+public class JwtTokenGenerator : IJwtTokenGenerator
 {
-    private readonly IConfiguration _config;
     private readonly SymmetricSecurityKey _key;
     private readonly UserManager<AppUser> _userManager;
-    public JwtTokenGenerator(IConfiguration config, UserManager<AppUser> userManager)
+    private readonly JwtSettings _jwtSettings;
+    public JwtTokenGenerator(UserManager<AppUser> userManager, IOptions<JwtSettings> jwtOptions)
     {
-        _config = config;
-        _key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]!));
+        _jwtSettings = jwtOptions.Value;
         _userManager = userManager;
+
+        _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
     }
 
-    public async Task<string> GenerateToken(Guid userId, string email, string userName)
+    public async Task<string> GenerateToken(
+        Guid userId, 
+        string email, 
+        string userName)
     {
         var user = await _userManager.FindByIdAsync(userId.ToString()) ?? throw new Exception("User not found");
 
@@ -37,15 +46,28 @@ public class JwtTokenGenerator
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(3),
-            Issuer = _config["Jwt:Issuer"],
-            Audience = _config["Jwt:Audience"],
+            Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryInMinutes),
+            Issuer = _jwtSettings.Issuer,
+            Audience = _jwtSettings.Audience,
             SigningCredentials = creds
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
+    }
+
+    public (string RawToken, string TokenHash) GenerateRefreshToken()
+    {
+        var bytes = RandomNumberGenerator.GetBytes(64);
+        var rawToken = Convert.ToBase64String(bytes);
+        return (rawToken, HashToken(rawToken));
+    }
+
+    public string HashToken(string rawToken)
+    {
+        var hashBytes = SHA256.HashData(Encoding.UTF8.GetBytes(rawToken));
+        return Convert.ToHexString(hashBytes);
     }
 }
 

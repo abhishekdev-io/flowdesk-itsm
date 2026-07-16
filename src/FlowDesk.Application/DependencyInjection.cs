@@ -1,6 +1,6 @@
 using FlowDesk.Application.Behaviours;
 using FlowDesk.Application.Common.Context;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Application.Common.Permission;
 using FlowDesk.Domain.Tickets.Services;
 using FluentValidation;

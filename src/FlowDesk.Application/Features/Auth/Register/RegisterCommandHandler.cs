@@ -11,7 +11,8 @@ public class RegisterCommandHandler(IAuthService authService) : IRequestHandler<
             request.UserName,
             request.Email,
             request.Password,
-            request.AvatarUrl
+            request.AvatarUrl,
+            cancellationToken
             );
     }
 }

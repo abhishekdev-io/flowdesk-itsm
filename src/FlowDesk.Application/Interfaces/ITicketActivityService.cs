@@ -1,6 +1,6 @@
 using FlowDesk.Domain.Tickets.Enums;
 
-namespace FlowDesk.Application.Interface;
+namespace FlowDesk.Application.Interfaces;
 
 public interface ITicketActivityService
 {

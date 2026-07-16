@@ -1,6 +1,6 @@
 using FlowDesk.Application.Common.Dto;
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Tickets;
 
 namespace FlowDesk.Application.Features.Tickets.GetTicketActivities;

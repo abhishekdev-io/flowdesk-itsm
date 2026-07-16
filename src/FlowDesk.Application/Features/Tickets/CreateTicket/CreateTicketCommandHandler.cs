@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Tickets.Aggregates;
 
 namespace FlowDesk.Application.Features.Tickets.CreateTicket;

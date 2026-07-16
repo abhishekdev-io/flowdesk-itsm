@@ -12,7 +12,8 @@ public class CreateSystemAdminCommandHandler(
             request.UserName,
             request.Email,
             request.Password,
-            request.AvatarUrl
+            request.AvatarUrl,
+            cancellationToken
             );
     }
 }

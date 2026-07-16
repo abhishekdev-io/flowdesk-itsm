@@ -1,6 +1,6 @@
 using FlowDesk.Application.Common.Dto;
 
-namespace FlowDesk.Application.Interface;
+namespace FlowDesk.Application.Interfaces;
 
 public interface IAppUserRepository
 {

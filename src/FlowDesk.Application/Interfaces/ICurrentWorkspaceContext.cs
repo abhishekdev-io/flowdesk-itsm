@@ -1,6 +1,6 @@
 using FlowDesk.Domain.Workspaces.Enums;
 
-namespace FlowDesk.Application.Interface;
+namespace FlowDesk.Application.Interfaces;
 
 public interface ICurrentWorkspaceContext
 {

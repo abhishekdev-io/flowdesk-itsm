@@ -170,6 +170,46 @@ namespace FlowDesk.Infrastructure.Persistence.Migrations
                     b.ToTable("Assets");
                 });
 
+            modelBuilder.Entity("FlowDesk.Domain.Authentication.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ReplacedByTokenId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("RevokedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RevokedReason")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TokenHash")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TokenHash")
+                        .IsUnique();
+
+                    b.HasIndex("UserId", "RevokedAt")
+                        .HasDatabaseName("IX_RefreshTokens_UserId_Active");
+
+                    b.ToTable("RefreshTokens", (string)null);
+                });
+
             modelBuilder.Entity("FlowDesk.Domain.Notifications.UserNotification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -707,6 +747,15 @@ namespace FlowDesk.Infrastructure.Persistence.Migrations
                     b.Navigation("AssetCategory");
 
                     b.Navigation("Name")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FlowDesk.Domain.Authentication.RefreshToken", b =>
+                {
+                    b.HasOne("FlowDesk.Infrastructure.Identity.Entity.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

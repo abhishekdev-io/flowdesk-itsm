@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Notifications;
 using FlowDesk.Domain.Tickets.Events;
 using FlowDesk.Domain.Workspaces.Enums;

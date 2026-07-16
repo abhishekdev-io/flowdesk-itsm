@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Tickets.Services;
 
 namespace FlowDesk.Application.Features.Tickets.GetSlaDashboard;

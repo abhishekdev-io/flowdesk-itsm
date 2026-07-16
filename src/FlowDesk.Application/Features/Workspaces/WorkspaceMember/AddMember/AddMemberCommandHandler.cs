@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Workspaces;
 using MediatR;
 

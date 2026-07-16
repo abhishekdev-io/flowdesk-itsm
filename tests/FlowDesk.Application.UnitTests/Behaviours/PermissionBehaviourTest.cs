@@ -1,7 +1,7 @@
 using FlowDesk.Application.Behaviours;
 using FlowDesk.Application.Common.Exceptions;
 using FlowDesk.Application.Common.Permission;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FluentAssertions;
 using MediatR;
 using NSubstitute;

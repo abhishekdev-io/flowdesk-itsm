@@ -1,7 +1,7 @@
 using System.Reflection;
 using FlowDesk.Application.Common.Permission;
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 
 namespace FlowDesk.Application.Behaviours;
 

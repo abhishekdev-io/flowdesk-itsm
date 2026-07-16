@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Application.Common.Exceptions;
 
 namespace FlowDesk.Application.Features.Assets.GetAsset;

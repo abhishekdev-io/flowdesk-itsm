@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Assets;
  
 namespace FlowDesk.Application.Features.Assets.CreateAsset;

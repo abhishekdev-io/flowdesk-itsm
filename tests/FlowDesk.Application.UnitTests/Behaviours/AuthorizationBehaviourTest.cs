@@ -1,6 +1,6 @@
 using FlowDesk.Application.Behaviours;
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Application.UnitTests.Common;
 using FlowDesk.Domain.Workspaces.Aggregates;
 using FlowDesk.Domain.Workspaces.Enums;

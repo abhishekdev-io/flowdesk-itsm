@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using MockQueryable.NSubstitute;

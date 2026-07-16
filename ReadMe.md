@@ -6,3 +6,5 @@
 ## PostgreSql
 ## Entity Framework Core - used high level query and DB View
 ## DomainEvents and SavedChanges Interceptor
+
+# Add DataBase Migrations

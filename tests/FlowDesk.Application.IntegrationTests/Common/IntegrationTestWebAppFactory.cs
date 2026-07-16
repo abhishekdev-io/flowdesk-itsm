@@ -1,6 +1,6 @@
 using System.Data.Common;
 using FlowDesk.Application.IntegrationTests.Common.Helper;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;

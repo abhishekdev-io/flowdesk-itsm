@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 
 namespace FlowDesk.Application.Features.Assets.ReturnAssetFromMaintenance;
 

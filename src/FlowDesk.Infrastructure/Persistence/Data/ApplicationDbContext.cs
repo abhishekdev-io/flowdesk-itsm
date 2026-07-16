@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Assets;
 using FlowDesk.Domain.AssetCategories;
 using FlowDesk.Domain.Tickets.Aggregates;
@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using FlowDesk.Application.Common.ReadModel;
 using FlowDesk.Domain.Notifications;
+using FlowDesk.Domain.Authentication;
 
 namespace FlowDesk.Infrastructure.Persistence.Data;
 
@@ -23,6 +24,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TicketComment> TicketComments => Set<TicketComment>(); 
     public DbSet<TicketActivity> TicketActivities => Set<TicketActivity>();
     public DbSet<UserNotification> UserNotifications => Set<UserNotification>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     
     //ReadModel for DB view
     public DbSet<WorkspaceUserView> WorkspaceUsersView => Set<WorkspaceUserView>();

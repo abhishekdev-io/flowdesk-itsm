@@ -2,7 +2,7 @@ using FlowDesk.Api;
 using FlowDesk.Api.Extensions;
 using FlowDesk.Api.Middleware;
 using FlowDesk.Infrastructure.Identity.Middleware;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace FlowDesk.Infrastructure.Identity.Middleware;

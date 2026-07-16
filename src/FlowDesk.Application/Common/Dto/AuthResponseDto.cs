@@ -4,7 +4,8 @@ public record AuthResponseDto(
     Guid UserId,
     string UserName,
     string Email,
-    string Token
+    string AccessToken,
+    string RefreshToken
 );
 
 

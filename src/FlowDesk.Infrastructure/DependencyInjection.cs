@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Infrastructure.Identity.Services;
 using FlowDesk.Infrastructure.Persistence.Data;
 using Microsoft.Extensions.Configuration;
@@ -9,10 +9,10 @@ using FlowDesk.Domain.Workspaces;
 using FlowDesk.Infrastructure.Identity.Context;
 using FlowDesk.Infrastructure.Identity.Repository;
 using FlowDesk.Domain.Tickets;
-using FlowDesk.Application.Interfaces;
 using FlowDesk.Infrastructure.Identity.Seeders;
 using FlowDesk.Infrastructure.Persistence.Seeders;
 using FlowDesk.Infrastructure.Persistence.Services;
+using FlowDesk.Infrastructure.Identity.Config;
 
 namespace FlowDesk.Infrastructure;
 
@@ -36,7 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider =>
         provider.GetRequiredService<ApplicationDbContext>());
 
-        services.AddScoped<JwtTokenGenerator>()
+        services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>()
                 .AddScoped<IAuthService, AuthServices>()
                 .AddScoped<ICurrentUserContext, CurrentUserContext>()
                 .AddScoped<IWorkspaceRepository, WorkspaceRepository>()

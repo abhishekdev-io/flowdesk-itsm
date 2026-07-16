@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Pagination;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 
 namespace FlowDesk.Application.Features.Notifications.GetUserNotifications;
 

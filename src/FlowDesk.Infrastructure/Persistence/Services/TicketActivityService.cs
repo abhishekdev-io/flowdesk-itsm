@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Tickets.Aggregates;
 using FlowDesk.Domain.Tickets.Enums;
 using FlowDesk.Infrastructure.Persistence.Data;

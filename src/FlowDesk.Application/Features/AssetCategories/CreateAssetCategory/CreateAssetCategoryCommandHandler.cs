@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using FlowDesk.Domain.AssetCategories;

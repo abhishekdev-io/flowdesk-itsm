@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Permission;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 
 namespace FlowDesk.Application.Features.Tickets.GetSlaDashboard;
 

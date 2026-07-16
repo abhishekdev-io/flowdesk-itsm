@@ -1,5 +1,5 @@
 using FlowDesk.Application.Common.Exceptions;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Application.Common.Pagination;
 using FlowDesk.Domain.Workspaces.Enums;
 using FlowDesk.Domain.Tickets.Services;

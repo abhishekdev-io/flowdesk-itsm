@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Workspaces.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

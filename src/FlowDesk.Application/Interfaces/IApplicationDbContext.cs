@@ -5,7 +5,7 @@ using FlowDesk.Domain.Workspaces.Aggregates;
 using FlowDesk.Application.Common.ReadModel;
 using FlowDesk.Domain.Notifications;
 
-namespace FlowDesk.Application.Interface;
+namespace FlowDesk.Application.Interfaces;
 
 public interface IApplicationDbContext
 {

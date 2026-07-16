@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Application.Common.Permission;
 using FlowDesk.Application.Common.Dto;
 using MediatR;

@@ -2,6 +2,7 @@ using FlowDesk.Application.Features.Auth.Register;
 using FlowDesk.Application.Features.Auth.Login;
 using FlowDesk.Application.Common.Dto;
 using FlowDesk.Api.Dto.Auth;
+using FlowDesk.Application.Features.Auth.RefreshToken;
 
 namespace FlowDesk.Api.Controllers;
 
@@ -39,6 +40,17 @@ public class AuthController(IMediator mediator) : ControllerBase
     {
         var command = new LoginCommand(request.Email, request.Password);
         var result = await mediator.Send(command,cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpPost("refresh")]
+    [ProducesResponseType<AuthResponseDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> Refresh(
+        [FromBody] RefreshTokenRequest request,
+        CancellationToken ct)
+    {
+        var result = await mediator.Send(new RefreshTokenCommand(request.RefreshToken), ct);
         return Ok(result);
     }
 }

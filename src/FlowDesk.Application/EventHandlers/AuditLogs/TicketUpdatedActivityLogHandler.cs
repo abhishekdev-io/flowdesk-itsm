@@ -1,5 +1,5 @@
 using System.Text;
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Tickets.Enums;
 using FlowDesk.Domain.Tickets.Events;
 

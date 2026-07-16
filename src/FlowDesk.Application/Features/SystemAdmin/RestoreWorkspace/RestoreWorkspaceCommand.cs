@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interface;
+using FlowDesk.Application.Interfaces;
 using MediatR;
 
 namespace FlowDesk.Application.Features.SystemAdmin.RestoreWorkspace;

@@ -8,6 +8,11 @@ public class LoginCommandHandler(IAuthService authService) : IRequestHandler<Log
 {
     public async Task<AuthResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        return await authService.LoginAsync(request.Email, request.Password);
+        return await authService.LoginAsync(
+            request.Email, 
+            request.Password, 
+            cancellationToken
+            );
     }
 }
+ 
