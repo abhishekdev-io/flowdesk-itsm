@@ -4,7 +4,6 @@ namespace FlowDesk.Application.IntegrationTests.Common;
 
 public static class ServiceCollectionExtensions
 {
-    //Overload of RemoveByServiceType method that takes a Type parameter instead of a generic type parameter, allowing us to remove services by their runtime type.
     public static IServiceCollection RemoveByServiceType<TService>(this IServiceCollection services)
     {
         var descriptor = services.SingleOrDefault(

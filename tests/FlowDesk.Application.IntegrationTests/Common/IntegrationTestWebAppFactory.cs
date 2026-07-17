@@ -15,8 +15,6 @@ using Respawn;
 namespace FlowDesk.Application.IntegrationTests.Common;
 
 public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsyncLifetime
-//IAsyncLifetime provides methods for asynchronous initialization(InitializeAsync) and cleanup of resources(DisposeAsync),
-//It tells Xunit -before each test calls InitializeAsync() and after each test calls DisposeAsync()
 {
     private const string TestConnectionString = "Host=localhost;Database=flowdesk_test;Username=postgres;Password=postgres;Include Error Detail=true";
     private DbConnection _dbConnection = default!;
@@ -32,7 +30,7 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
             await dbContext.Database.MigrateAsync(); //makes dotnet ef database update automatic
 
         _dbConnection = new NpgsqlConnection(TestConnectionString);
-        await _dbConnection.OpenAsync(); //Respawner needs an open connection to reset the database
+        await _dbConnection.OpenAsync(); 
 
         //create respawner   
         _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
@@ -50,8 +48,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
     {
         builder.UseEnvironment("Testing"); //Tells application we are in testing environment
 
-        //Add in-memory configuration for JWT settings to avoid using real secrets during testing,
-        //  InMemoryConfiguration override the configuration and inject fake ones for testing
         builder.ConfigureAppConfiguration((context, configBuilder) =>
         {
             configBuilder.AddInMemoryCollection(new Dictionary<string, string?>
@@ -67,12 +63,12 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>, IAsy
         builder.ConfigureTestServices(services =>
         {
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
-            if (descriptor != null) services.Remove(descriptor); //Remove the existing ApplicationDbContext registration
+            if (descriptor != null) services.Remove(descriptor); 
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(TestConnectionString)); //Register test database
             
-            services.RemoveByServiceType<IApplicationDbContext>(); //Remove the existing IApplicationDbContext registration
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>()); //Register IApplicationDbContext to use the test ApplicationDbContext(test)
+            services.RemoveByServiceType<IApplicationDbContext>(); 
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>()); 
             
             //Register a test authentication scheme to bypass real authentication during testing,
             // here we use TestAuthHandler instead of Jwt so every request is authenticated automatically

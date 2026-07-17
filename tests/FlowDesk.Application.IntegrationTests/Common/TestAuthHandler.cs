@@ -7,7 +7,6 @@ using FlowDesk.Application.IntegrationTests.Common.Helper;
 
 namespace FlowDesk.Application.IntegrationTests.Common;
 
-//Create a custom authentication handler which generates a fake user for testing purposes, allowing us to bypass real authentication during integration tests.
 public class TestAuthHandler(
     IOptionsMonitor<AuthenticationSchemeOptions> options,
     ILoggerFactory logger,

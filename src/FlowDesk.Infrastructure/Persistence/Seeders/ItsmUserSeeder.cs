@@ -28,6 +28,6 @@ public static class ItsmUserSeeder
 
         return [localAdmin, agent1, agent2, member1, member2, member3];
     }
-} 
+}  
    
      

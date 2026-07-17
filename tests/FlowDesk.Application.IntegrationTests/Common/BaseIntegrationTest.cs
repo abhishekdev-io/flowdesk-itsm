@@ -4,13 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FlowDesk.Application.IntegrationTests.Common;
 
-//Instead of Create HttpClient,Create DbContext service, Reset Database and Seed user for every test repeateadly
-// all the test classes can inherit from BaseIntegrationTest class to get these functionalities
+[CollectionDefinition("IntegrationTests Collection")] 
+public class SharedTestCollection : ICollectionFixture<IntegrationTestWebAppFactory> { } 
 
-[CollectionDefinition("IntegrationTests Collection")] //Here we create a collection named "IntegrationTests Collection"
-public class SharedTestCollection : ICollectionFixture<IntegrationTestWebAppFactory> { } //This class says all the test class in the "IntegrationTests Collection" share same Fixture which is <IntegrationTestWebAppFactory>
-
-[Collection("IntegrationTests Collection")]//Add the class which inherit BaseIntegrationTest belongs to "IntegrationTests Collection"
+[Collection("IntegrationTests Collection")]
 public abstract class BaseIntegrationTest: IAsyncLifetime
 {
     protected readonly IntegrationTestWebAppFactory Factory;
