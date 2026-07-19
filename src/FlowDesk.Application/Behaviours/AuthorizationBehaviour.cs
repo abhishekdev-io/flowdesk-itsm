@@ -30,4 +30,3 @@ public sealed class AuthorizationBehaviour<TRequest, TResponse>(
         return await next(cancellationToken);
     }
 }
- 

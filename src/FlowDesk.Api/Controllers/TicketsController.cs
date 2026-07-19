@@ -59,7 +59,7 @@ public class TicketsController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("activities")]
+    [HttpGet("{ticketId}/activities")]
     [ProducesResponseType(typeof(TicketDetailsResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTicketActivitiesAsync(

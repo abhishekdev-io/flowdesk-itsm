@@ -1,5 +1,5 @@
 using FlowDesk.Domain.Exceptions;
-
+ 
 namespace FlowDesk.Domain.Primitives;
 
 public abstract class Entity<TId> : IEquatable<Entity<TId>>

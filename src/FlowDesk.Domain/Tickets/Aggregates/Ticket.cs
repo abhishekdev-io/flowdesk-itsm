@@ -288,8 +288,11 @@ public sealed class Ticket : AggregateRoot<Guid>
     // Status to Reopen
     public void Reopen(Guid reopenedByUserId)
     {
-        if (Status != TicketStatus.Resolved)
-            throw new DomainStateException("Only resolved tickets can be reopened");
+        // Allow either Resolved OR Closed tickets to be reopened
+        if (Status != TicketStatus.Resolved && Status != TicketStatus.Closed)
+        {
+            throw new DomainStateException("Only resolved or closed tickets can be reopened");
+        }
 
         var oldStatus = Status;    
 

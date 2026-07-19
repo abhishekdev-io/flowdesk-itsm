@@ -29,15 +29,15 @@ public class AuthorizationBehaviourTest
 
     private AuthorizationBehaviour<TestRequest, string> CreateSut() =>  //Create a method to create the system under test (SUT) for the AuthorizationBehaviour with TestRequest and string as type parameters
         new(_currentUserContext, _workspaceContext, _context);
-    
+
     [Fact]
     public async Task Handle_WhenUserNotAuthenticated_ThrowsUnauthorizedAccessException()
     {
         _currentUserContext.IsAuthenticated.Returns(false);
         var sut = CreateSut();
         var request = new TestRequest(WorkspaceId);
-        var nextCalled = false; 
-        Task<string> Next(CancellationToken ct) { nextCalled = true; return Task.FromResult("ok"); } 
+        var nextCalled = false;
+        Task<string> Next(CancellationToken ct) { nextCalled = true; return Task.FromResult("ok"); }
 
         var act = async () => await sut.Handle(request, Next, CancellationToken.None);
 
@@ -52,7 +52,7 @@ public class AuthorizationBehaviourTest
         _currentUserContext.UserId.Returns(UserId);
 
         var mockMembers = DbContextMockFactory.MockDbSet(new List<WorkspaceMember>());
-            _context.WorkspaceMembers.Returns(mockMembers);
+        _context.WorkspaceMembers.Returns(mockMembers);
 
         var sut = CreateSut();
         var request = new TestRequest(WorkspaceId);
@@ -74,11 +74,11 @@ public class AuthorizationBehaviourTest
 
         var membership = WorkspaceMember.Create(
             UserId,
-            WorkspaceId,            
+            WorkspaceId,
             WorkspaceRole.Agent
         );
         var mockMembers = DbContextMockFactory.MockDbSet(new List<WorkspaceMember> { membership });
-            _context.WorkspaceMembers.Returns(mockMembers);
+        _context.WorkspaceMembers.Returns(mockMembers);
 
         var sut = CreateSut();
         var request = new TestRequest(WorkspaceId);

@@ -16,37 +16,37 @@ public sealed class PermissionBehaviour<TRequest, TResponse>(
         var attribute = typeof(TRequest)
             .GetCustomAttribute<RequirePermissionAttribute>();
 
-        if(attribute is null) 
-           return await next(cancellationToken);
+        if (attribute is null)
+            return await next(cancellationToken);
 
         var allowed = attribute.Permission switch
         {
-            Permissions.CanManageAssets                 => permissionService.CanManageAssets(),
-            Permissions.CanViewAssets                   => permissionService.CanViewAssets(),
+            Permissions.CanManageAssets => permissionService.CanManageAssets(),
+            Permissions.CanViewAssets => permissionService.CanViewAssets(),
 
-            Permissions.CanManageCategories             => permissionService.CanManageCategories(),
-            Permissions.CanViewCategories               => permissionService.CanViewCategories(),
+            Permissions.CanManageCategories => permissionService.CanManageCategories(),
+            Permissions.CanViewCategories => permissionService.CanViewCategories(),
 
-            Permissions.CanCreateTickets                => permissionService.CanCreateTickets(),
-            Permissions.CanChangeTicketStatus           => permissionService.CanChangeTicketStatus(),
-            Permissions.CanChangeTicketPriority         => permissionService.CanChangeTicketPriority(),
-            Permissions.CanChangeTicketType             => permissionService.CanChangeTicketType(),
-            Permissions.CanAssignAndUnAssignTickets     => permissionService.CanAssignAndUnAssignTickets(),
-            Permissions.CanArchiveAndUnArchiveTickets   => permissionService.CanArchiveAndUnArchiveTickets(),
+            Permissions.CanCreateTickets => permissionService.CanCreateTickets(),
+            Permissions.CanChangeTicketStatus => permissionService.CanChangeTicketStatus(),
+            Permissions.CanChangeTicketPriority => permissionService.CanChangeTicketPriority(),
+            Permissions.CanChangeTicketType => permissionService.CanChangeTicketType(),
+            Permissions.CanAssignAndUnAssignTickets => permissionService.CanAssignAndUnAssignTickets(),
+            Permissions.CanArchiveAndUnArchiveTickets => permissionService.CanArchiveAndUnArchiveTickets(),
 
-            Permissions.CanViewActiveComments           => permissionService.CanViewActiveComments(),
-            Permissions.CanViewDeletedComments          => permissionService.CanViewDeletedComments(),
-            Permissions.CanRestoreComments              => permissionService.CanRestoreComments(),
+            Permissions.CanViewActiveComments => permissionService.CanViewActiveComments(),
+            Permissions.CanViewDeletedComments => permissionService.CanViewDeletedComments(),
+            Permissions.CanRestoreComments => permissionService.CanRestoreComments(),
 
-            Permissions.CanViewWorkspace                => permissionService.CanViewWorkspace(),
-            Permissions.CanManageWorkspace              => permissionService.CanManageWorkspace(),
-            
+            Permissions.CanViewWorkspace => permissionService.CanViewWorkspace(),
+            Permissions.CanManageWorkspace => permissionService.CanManageWorkspace(),
+
             _ => throw new PermissionMethodNotFoundException($"Unhandled permission: {attribute.Permission}")
-        }; 
+        };
 
         if (!allowed)
             throw new ForbiddenException("You do not have permission to perform this action.");
 
-         return await next(cancellationToken);        
+        return await next(cancellationToken);
     }
 }

@@ -13,8 +13,8 @@ public class PermissionBehaviourTest
     private readonly ICurrentWorkspaceContext _workspaceContext = Substitute.For<ICurrentWorkspaceContext>();
     private static readonly Guid WorkspaceId = Guid.NewGuid();
 
-    private PermissionBehaviour<TRequest, string> CreateSut<TRequest>() 
-        where TRequest : IWorkspaceRequest 
+    private PermissionBehaviour<TRequest, string> CreateSut<TRequest>()
+        where TRequest : IWorkspaceRequest
     {
         var permissionService = new PermissionService(_workspaceContext);
         return new PermissionBehaviour<TRequest, string>(permissionService);
@@ -33,7 +33,7 @@ public class PermissionBehaviourTest
     public async Task Handle_WhenPermissionIsGranted_CallsNext()
     {
         // Arrange
-        _workspaceContext.IsAdmin.Returns(true); 
+        _workspaceContext.IsAdmin.Returns(true);
 
         var sut = CreateSut<ManageAssetsRequest>();
         var request = new ManageAssetsRequest(WorkspaceId);
@@ -52,7 +52,7 @@ public class PermissionBehaviourTest
     public async Task Handle_WhenPermissionIsDenied_ThrowsForbiddenException()
     {
         // Arrange
-        _workspaceContext.IsAdmin.Returns(false); 
+        _workspaceContext.IsAdmin.Returns(false);
 
         var sut = CreateSut<ManageAssetsRequest>();
         var request = new ManageAssetsRequest(WorkspaceId);
