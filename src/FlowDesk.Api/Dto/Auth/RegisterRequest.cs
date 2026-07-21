@@ -6,3 +6,4 @@ public sealed record RegisterRequest(
     string Password,
     string ConfirmPassword,
     string AvatarUrl);
+ 

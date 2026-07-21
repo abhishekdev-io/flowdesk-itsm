@@ -12,6 +12,7 @@ public static class AuthExtension
     public static void AddAuthServices(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<JwtSettings>(config.GetSection(JwtSettings.ConfigurationKey));
+        services.Configure<RefreshTokenCookieSettings>(config.GetSection(RefreshTokenCookieSettings.ConfigurationKey));
 
         var jwtSettings = config
             .GetSection(JwtSettings.ConfigurationKey)

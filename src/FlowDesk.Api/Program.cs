@@ -35,6 +35,21 @@ builder.Services.AddApi(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerDocumentation();
 
+var flowDeskOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? ["http://localhost:5173"]; // Vite dev server
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FlowDeskFrontend", policy =>
+    {
+        policy.WithOrigins(flowDeskOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // required if you go the httpOnly-cookie refresh-token route
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,6 +82,8 @@ if (app.Environment.IsDevelopment())
         throw;
     }
 }
+
+app.UseCors("FlowDeskFrontend");
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseSerilogRequestLogging();//initialise serilog
