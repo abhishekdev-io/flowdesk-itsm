@@ -3,11 +3,11 @@
 > A production-grade, multi-tenant helpdesk and IT asset management REST API built on .NET 10, Clean Architecture, Domain-Driven Design (DDD), and CQRS.
 
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
-![C#](https://img.shields.io/badge/C%23-13-239120?style=flat-square&logo=csharp)
+![C#](https://img.shields.io/badge/C%23-13-239120?style=flat-square)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15%2B-4169E1?style=flat-square&logo=postgresql)
 ![EF Core](https://img.shields.io/badge/EF%20Core-10.0.7-512BD4?style=flat-square&logo=dotnet)
 ![MediatR](https://img.shields.io/badge/MediatR-14.1.0-FF4500?style=flat-square)
-![License](https://img.shields.io/badge/License-NEEDS--INPUT-grey?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 ---
 
@@ -231,17 +231,18 @@ For deeper architectural context on domain aggregates and design patterns, explo
 - [ ] **[NEEDS INPUT]** Real-time WebSocket notifications for ticket status updates.
 - [ ] **[NEEDS INPUT]** Outbox Pattern implementation for external integration messaging.
 - [ ] **[NEEDS INPUT]** Automated SLA breach escalation trigger jobs via Quartz.NET.
+- [ ] **[NEEDS INPUT]** Email service via Quartz/Hangfire.
 
 ---
 
 ## License & Author
 
 ### License
-> **[NEEDS INPUT]**: This repository does not currently include an explicit license file. Please consult the author for usage rights.
+> This project is licensed under the [MIT License](LICENSE).
 
 ### Author
 Developed as a production-grade .NET engineering portfolio project.
 
 - **Author**: [******]
-- **LinkedIn**: [LINKEDIN]
-- **Email**: [YOUR EMAIL]
+- **LinkedIn**: [******]
+- **Email**: [******]
