@@ -21,6 +21,9 @@ public class GetAssetByIdQueryHandler(
                 a.Manufacturer,
                 a.ModelNumber,
                 a.SerialNumber,
+                a.CreatedAt,
+                a.UpdatedAt,
+                a.DecommissionedAt,
                 a.WorkspaceId
             )).FirstOrDefaultAsync(cancellationToken);
 

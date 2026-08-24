@@ -6,7 +6,7 @@ namespace FlowDesk.Application.Features.Auth.Register;
 public sealed record RegisterCommand(
     string Email,
     string UserName,
-    string AvatarUrl,
+    string? AvatarUrl,
     string Password,
     string ConfirmPassword
 ) : IRequest<AuthResponseDto>;

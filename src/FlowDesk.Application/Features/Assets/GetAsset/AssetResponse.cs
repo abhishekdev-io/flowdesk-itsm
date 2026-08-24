@@ -9,6 +9,9 @@ public record AssetResponse(
     string Manufacturer,
     string Modelnumber,
     string? Serialnumber,
+    DateTime CreatedAt,
+    DateTime? UpdateAt,
+    DateTime? DecommissionedAt,
     Guid WorkspaceId
 );
 

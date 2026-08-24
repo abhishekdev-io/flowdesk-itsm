@@ -38,7 +38,7 @@ public class PermissionService(ICurrentWorkspaceContext workspaceContext)
     => _workspaceContext.IsAdmin || _workspaceContext.IsAgent || _workspaceContext.IsMember;
 
     public bool CanArchiveAndUnArchiveTickets()
-    => _workspaceContext.IsAdmin;
+    => _workspaceContext.IsAdmin || _workspaceContext.IsAgent || _workspaceContext.IsMember;
 
 //TicketComment
     public bool CanViewActiveComments()

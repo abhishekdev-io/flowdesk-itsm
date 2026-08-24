@@ -1,1 +1,1 @@
-# Application layer of the backend -- orcastrate domain logic, infrastructure
+# The Application (UseCases) Layer

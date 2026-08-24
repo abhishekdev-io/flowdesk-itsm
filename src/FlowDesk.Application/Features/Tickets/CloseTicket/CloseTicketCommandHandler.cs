@@ -18,7 +18,7 @@ public class CloseTicketCommandHandler(
             cancellationToken)
                 ?? throw new NotFoundException($"Ticket",request.TicketId);
 
-        ticket.Close(user.UserId,request.Reason);
+        ticket.Close(user.UserId);
         await context.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }

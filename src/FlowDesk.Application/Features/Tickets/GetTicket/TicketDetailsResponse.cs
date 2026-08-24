@@ -9,6 +9,7 @@ public record TicketDetailsResponse(
     string TicketNumber,
     string Description,
     string? AssetName,
+    TicketType Type,
     TicketStatus Status,
     TicketPriority Priority,
     SlaRiskLevel RiskLevel,

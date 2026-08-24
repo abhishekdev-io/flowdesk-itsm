@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FlowDesk.Application.Features.Workspaces.WorkspaceMember.ListMembers;
 
-[RequirePermission(Permissions.CanManageWorkspace)]
+[RequirePermission(Permissions.CanViewWorkspace)]
 public record ListMembersQuery(
     Guid WorkspaceId
 ) : IRequest<IEnumerable<WorkspaceMemberDto>>,IWorkspaceRequest;

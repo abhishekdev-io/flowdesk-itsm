@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace FlowDesk.Application.Features.Users.ListUsers;
 
-public class ListUsersQueryValidation : AbstractValidator<ListUsersQuery>
+public class ListUsersQueryValidator : AbstractValidator<ListUsersQuery>
 {
-    public ListUsersQueryValidation()
+    public ListUsersQueryValidator()
     {
         RuleFor(x => x.WorkspaceId)
             .NotEmpty()

@@ -30,7 +30,8 @@ public class ListAssetQueryHandler(
 
             query = query.Where(a =>
                 a.Name.Value.Contains(search) ||
-                a.AssetCategory.Name.Value.Contains(search)
+                a.AssetCategory.Name.Value.Contains(search) ||
+                a.AssetTag.Contains(search)
             );
         }
 

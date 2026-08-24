@@ -14,8 +14,11 @@ public class UpdateWorkspaceCommandHandler(
         var workspace = await workspaceRepository.GetByIdAsync(request.WorkspaceId,cancellationToken)
             ?? throw new NotFoundException("workspace",request.WorkspaceId);
 
-        if(await workspaceRepository.ExistByNameAsync(request.Name,cancellationToken))
-            throw new ConflictException($"workspace with name {request.Name} already exist"); 
+        if (!string.Equals(workspace.Name.Value, request.Name, StringComparison.OrdinalIgnoreCase))
+        {
+            if (await workspaceRepository.ExistByNameAsync(request.Name, cancellationToken))
+                throw new ConflictException($"Workspace with name '{request.Name}' already exists.");
+        } 
 
         workspace.Update(
             request.Name,

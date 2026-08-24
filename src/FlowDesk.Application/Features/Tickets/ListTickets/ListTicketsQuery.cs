@@ -15,4 +15,6 @@ public record TicketFilterParams : QueryParameters
     public TicketType? Type { get; init; }
     public string? Search { get; init; }
     public Guid? AssignedToUserId { get; set; }
+    public bool? IsArchived { get; init; } = false;
+    public bool? IsUnassigned { get; init; }
 };

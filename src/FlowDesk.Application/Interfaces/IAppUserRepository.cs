@@ -5,4 +5,7 @@ namespace FlowDesk.Application.Interfaces;
 public interface IAppUserRepository
 {
     Task<IEnumerable<AppUserDto>> ListUsersAsync(CancellationToken cancellationToken);
+
+    Task<AppUserDto?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
+    Task <AppUserDto?> GetCurrentUserAsync(CancellationToken cancellationToken);
 }

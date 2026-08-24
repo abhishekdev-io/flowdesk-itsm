@@ -28,6 +28,7 @@ public class GetCommentsByTicketIdQueryHandler(
                 context.WorkspaceUsersView
                     .Where(wv => wv.UserId == tc.CreatedBy)
                     .Select(u => new CommentAuthorDto(
+                        u.UserId,
                         u.UserName,
                         u.Role,
                         u.AvatarUrl

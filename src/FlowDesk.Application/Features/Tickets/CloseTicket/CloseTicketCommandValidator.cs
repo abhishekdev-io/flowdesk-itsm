@@ -10,11 +10,6 @@ public class CloseTicketCommandValidator : AbstractValidator<CloseTicketCommand>
 
         RuleFor(x => x.WorkspaceId)
             .NotEmpty()
-            .WithMessage("Workspace ID is required.");  
-
-        RuleFor(x => x.Reason)
-            .NotEmpty()
-            .MaximumLength(500)
-            .When(x => x.Reason is not null);  
+            .WithMessage("Workspace ID is required.");   
     }
 }
