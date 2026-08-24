@@ -50,7 +50,7 @@ public class AuthController(IMediator mediator, IOptions<JwtSettings> jwtOptions
         return Ok(result with { RefreshToken = "" });
     }
 
-    [HttpPost("refresh")]
+    [HttpPost("refresh-token")]
     [ProducesResponseType<AuthResponseDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Refresh(CancellationToken ct)

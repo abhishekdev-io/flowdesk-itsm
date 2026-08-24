@@ -12,7 +12,6 @@ public sealed class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionM
     private readonly RequestDelegate _next = next;
     private readonly ILogger<ExceptionMiddleware> _logger = logger;
 
-    // Reuse serializer options to prevent allocation overhead on every error response
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -26,7 +25,6 @@ public sealed class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionM
         }
         catch (Exception ex)
         {
-            // Single point of logging for all exceptions bubbling out of use-cases
             _logger.LogError(ex, "Unhandled exception occurred during request {Method} {Path}", 
                 context.Request.Method, 
                 context.Request.Path);
@@ -57,7 +55,7 @@ public sealed class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionM
                     ex.Errors
                         .GroupBy(e => e.PropertyName)
                         .ToDictionary(
-                            g => JsonNamingPolicy.CamelCase.ConvertName(g.Key), // Formats dictionary keys to camelCase
+                            g => JsonNamingPolicy.CamelCase.ConvertName(g.Key), 
                             g => g.Select(e => e.ErrorMessage).ToArray()
                         )
                 )),

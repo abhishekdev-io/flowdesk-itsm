@@ -60,7 +60,7 @@ public class TicketsController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("{ticketId}/activities")]
-    [ProducesResponseType(typeof(TicketDetailsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TicketActivityResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTicketActivitiesAsync(
         [FromRoute]Guid workspaceId,
@@ -75,7 +75,7 @@ public class TicketsController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("sla-dashboard")]
-    [ProducesResponseType(typeof(TicketDetailsResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SlaDashboardDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetSlaSummaryAsync(
         [FromRoute]Guid workspaceId,
@@ -240,12 +240,10 @@ public class TicketsController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> CloseTicketAsync(
         [FromRoute]Guid workspaceId,
         [FromRoute]Guid ticketId,
-        [FromBody] ChangeStatusRequest request,
         CancellationToken cancellationToken)
     {
         var command = new CloseTicketCommand(
             ticketId,
-            request.Reason,
             workspaceId);
 
         await mediator.Send(command, cancellationToken);

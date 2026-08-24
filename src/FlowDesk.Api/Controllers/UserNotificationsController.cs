@@ -41,7 +41,7 @@ public class UserNotificationsController(IMediator mediator) : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("delete-multiple")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteMultipleAsync(

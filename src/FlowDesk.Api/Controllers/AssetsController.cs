@@ -8,6 +8,7 @@ using FlowDesk.Application.Features.Assets.MoveAssetToMaintenance;
 using FlowDesk.Application.Features.Assets.ReturnAssetFromMaintenance;
 using FlowDesk.Application.Features.Assets.UpdateAsset;
 using FlowDesk.Application.Common.Pagination;
+using FlowDesk.Application.Features.Assets.AssetStats;
 
 namespace FlowDesk.Api.Controllers;
  
@@ -43,6 +44,19 @@ public class AssetsController(IMediator mediator) : ControllerBase
             new GetAssetByIdQuery(assetId, workspaceId),
             cancellationToken);
             
+        return Ok(result);
+    }
+
+    [HttpGet("stats")]
+    [ProducesResponseType(typeof(AssetStatsResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAssetStatsAsync(
+        [FromRoute] Guid workspaceId,
+        CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(
+            new GetAssetStatsQuery(workspaceId),
+            cancellationToken);
+
         return Ok(result);
     }
 

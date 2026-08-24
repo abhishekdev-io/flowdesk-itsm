@@ -37,7 +37,7 @@ builder.Services.AddSwaggerDocumentation();
 
 var flowDeskOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
-    .Get<string[]>() ?? ["http://localhost:5173"]; // Vite dev server
+    .Get<string[]>() ?? ["https://localhost:5173"]; 
 
 builder.Services.AddCors(options =>
 {
@@ -46,7 +46,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(flowDeskOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials(); // required if you go the httpOnly-cookie refresh-token route
+              .AllowCredentials(); 
     });
 });
 
@@ -86,7 +86,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("FlowDeskFrontend");
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseSerilogRequestLogging();//initialise serilog
+app.UseSerilogRequestLogging();
 app.UseAuthentication();
 app.UseMiddleware<CurrentUserMiddleware>();
 app.UseAuthorization();
@@ -106,6 +106,6 @@ catch (Exception ex)
 }
 finally
 {
-    Log.CloseAndFlush(); // ensures buffered log entries are actually written before process exit
+    Log.CloseAndFlush(); 
 }
 
