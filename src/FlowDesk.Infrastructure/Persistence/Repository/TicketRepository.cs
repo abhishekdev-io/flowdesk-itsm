@@ -31,6 +31,7 @@ public class TicketRepository(ApplicationDbContext context) : ITicketRepository
     {
         return _context.Tickets
                 .Include(t => t.Comments)
+                .IgnoreQueryFilters()
                 .FirstOrDefaultAsync(t => t.Id == Id &&
                     t.WorkspaceId == WorkspaceId,
                     cancellationToken

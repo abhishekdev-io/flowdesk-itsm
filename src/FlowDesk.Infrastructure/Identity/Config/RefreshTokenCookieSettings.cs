@@ -6,5 +6,5 @@ public class RefreshTokenCookieSettings
     
     public string Name { get; set; } = "refreshToken";
     public string Path { get; set; } = "/api/auth";
-    public string SameSite { get; set; } = "Lax";
+    public string SameSite { get; set; } = "None";
 }

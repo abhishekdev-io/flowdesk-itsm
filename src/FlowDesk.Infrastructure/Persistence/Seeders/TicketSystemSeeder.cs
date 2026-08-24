@@ -144,7 +144,7 @@ public static class TicketSystemSeeder
         ticket7.AddComment("Received and physically installed. Print tests passing perfectly.", member1.Id);
 
         ticket7.Resolve(admin.Id);
-        ticket7.Close(member1.Id,"Successfully resolved the issue");
+        ticket7.Close(member1.Id);
         ticket7.Archive(admin.Id); 
         
         await dbContext.Tickets.AddAsync(ticket7);

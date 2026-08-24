@@ -43,7 +43,6 @@ public class CloseTicketTest(IntegrationTestWebAppFactory factory)
 
         var command = new CloseTicketCommand(
             TicketId: ticket.Id,
-            Reason: "Resolved after power cycle.",
             WorkspaceId: workspace.Id
         );
 
@@ -83,7 +82,6 @@ public class CloseTicketTest(IntegrationTestWebAppFactory factory)
 
         var command = new CloseTicketCommand(
             TicketId: ticket.Id,
-            Reason: "Should not persist.",
             WorkspaceId: workspace.Id
         );
 
@@ -110,7 +108,6 @@ public class CloseTicketTest(IntegrationTestWebAppFactory factory)
         var nonExistentTicketId = Guid.NewGuid();
         var command = new CloseTicketCommand(
             TicketId: nonExistentTicketId,
-            Reason: "Ghost ticket.",
             WorkspaceId: workspace.Id
         );
 

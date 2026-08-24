@@ -133,7 +133,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
         );
         archivedTicket.Assign(assignedToUserId: Guid.NewGuid(), assignedByUserId: TestUserId); //Only assigned tickets can be resolved
         archivedTicket.Resolve(TestUserId); //Only resolved tickets can be closed
-        archivedTicket.Close(TestUserId,"close-ticket"); //Only closed tickets can be archived
+        archivedTicket.Close(TestUserId); //Only closed tickets can be archived
         archivedTicket.Archive(TestUserId);
 
         dbContext.Tickets.Add(archivedTicket);
@@ -183,7 +183,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
         );
         closedTicket.Assign(assignedToUserId: Guid.NewGuid(), assignedByUserId: TestUserId); //Only assigned tickets can be resolved
         closedTicket.Resolve(TestUserId); //Only resolved tickets can be closed
-        closedTicket.Close(TestUserId, "Resolved.");
+        closedTicket.Close(TestUserId);
 
         dbContext.Tickets.Add(closedTicket);
         await dbContext.SaveChangesAsync();

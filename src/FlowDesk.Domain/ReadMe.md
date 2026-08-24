@@ -1,1 +1,1 @@
-# Domain layer -- contain all the bisuness logic and aggregate root.
+# The Domain (Core) Layer

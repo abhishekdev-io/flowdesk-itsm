@@ -55,7 +55,7 @@ public class TicketTests
     private static Ticket CreateClosedTicket()
     {
         var ticket = CreateResolvedTicket();
-        ticket.Close(Guid.NewGuid(), reason: "Resolved and verified by end user.");
+        ticket.Close(Guid.NewGuid());
         return ticket;
     }
 
@@ -341,7 +341,7 @@ public class TicketTests
         var ticket = CreateResolvedTicket();
         var changedBy = Guid.NewGuid();
  
-        ticket.Close(changedBy, "Confirmed fixed by requester.");
+        ticket.Close(changedBy);
  
         var domainEvent = ticket.DomainEvents.OfType<TicketStatusChangedDomainEvent>()
             .Should().ContainSingle(e => e.NewStatus == TicketStatus.Closed).Subject;
@@ -510,7 +510,7 @@ public class TicketTests
             {
                 "Close_WhenNotResolved",
                 () => CreateOpenTicket(),
-                t => t.Close(Guid.NewGuid(), reason: null)
+                t => t.Close(Guid.NewGuid())
             },
             {
                 "Reopen_WhenNotResolved",

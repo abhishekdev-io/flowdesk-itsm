@@ -72,9 +72,10 @@ public class AuthServices(
         string userName, 
         string email, 
         string password, 
-        string avatarUrl,
+        string? avatarUrl,
         CancellationToken ct)
     {
+            
         var user = AppUser.Create(userName, email, avatarUrl);
         var result = await userManager.CreateAsync(user, password);
         
@@ -90,9 +91,10 @@ public class AuthServices(
         string userName, 
         string email, 
         string password, 
-        string avatarUrl,
+        string? avatarUrl,
         CancellationToken ct)
     {
+        
         var user = AppUser.CreateSystemAdmin(userName, email, avatarUrl);
         var result = await userManager.CreateAsync(user, password);
         
@@ -128,6 +130,7 @@ public class AuthServices(
             user.Id, 
             user.UserName!, 
             user.Email!, 
+            user.AvatarUrl!,
             accessToken, 
             rawToken
             );

@@ -262,7 +262,7 @@ public sealed class Ticket : AggregateRoot<Guid>
     }
 
     // Status to closed
-    public void Close(Guid userId, string? reason)
+    public void Close(Guid userId)
     {
         if (Status != TicketStatus.Resolved)
             throw new DomainStateException("Only resolved tickets can be closed");
@@ -280,8 +280,7 @@ public sealed class Ticket : AggregateRoot<Guid>
             ChangedBy: userId,
             TicketNumber: TicketNumber,
             OldStatus: oldStatus,
-            NewStatus: Status,
-            Reason: reason
+            NewStatus: Status            
         ));
     }
 
@@ -396,6 +395,10 @@ public sealed class Ticket : AggregateRoot<Guid>
     public void EditComment(Guid commentId, Guid userId, string description)
     {
         var comment = FindComment(commentId);
+
+        if(comment.IsDeleted)
+            throw new DomainException("Cannot edit deleted comment.");
+            
         if (comment.CreatedBy != userId)
             throw new DomainException("Only the comment creator can edit the comment.");
         comment.Edit(description);

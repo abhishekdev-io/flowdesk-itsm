@@ -20,7 +20,7 @@ public class AppUser : IdentityUser<Guid>
         return user;
     }
 
-    public static AppUser CreateSystemAdmin(string email, string userName, string? avatarUrl)
+    public static AppUser CreateSystemAdmin(string email, string userName, string? avatarUrl = null)
     {
         return new AppUser
         {

@@ -2,7 +2,7 @@ using FlowDesk.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity;
  
 namespace FlowDesk.Infrastructure.Persistence.Seeders;
-  
+    
 public static class ItsmUserSeeder
 {
     public static async Task<List<AppUser>> SeedPlatformUsersAsync(UserManager<AppUser> userManager)
@@ -30,4 +30,4 @@ public static class ItsmUserSeeder
     }
 }    
    
-      
+             
