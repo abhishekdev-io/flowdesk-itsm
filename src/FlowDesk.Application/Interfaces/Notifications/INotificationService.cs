@@ -1,6 +1,6 @@
 using FlowDesk.Domain.Notifications;
 
-namespace FlowDesk.Application.Interfaces;
+namespace FlowDesk.Application.Interfaces.Notifications;
 
 public interface INotificationService
 {
@@ -23,3 +23,4 @@ public interface INotificationService
         CancellationToken cancellationToken);
    
 }
+ 

@@ -1,4 +1,4 @@
-using FlowDesk.Application.Interfaces;
+using FlowDesk.Application.Interfaces.Notifications;
 using FlowDesk.Domain.Notifications;
 using FlowDesk.Domain.Workspaces.Events;
 

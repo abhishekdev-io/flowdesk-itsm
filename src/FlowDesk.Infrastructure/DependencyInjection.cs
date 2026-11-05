@@ -13,6 +13,8 @@ using FlowDesk.Infrastructure.Identity.Seeders;
 using FlowDesk.Infrastructure.Persistence.Seeders;
 using FlowDesk.Infrastructure.Persistence.Services;
 using FlowDesk.Infrastructure.Identity.Config;
+using FlowDesk.Application.Interfaces.Notifications;
+using FlowDesk.Application.Interfaces.Realtime;
 
 namespace FlowDesk.Infrastructure;
 
@@ -43,7 +45,8 @@ public static class DependencyInjection
                 .AddScoped<IAppUserRepository, AppUserRepository>()
                 .AddScoped<ITicketRepository,TicketRepository>()
                 .AddScoped<INotificationService, NotificationService>()
-                .AddScoped<ITicketActivityService, TicketActivityService>();
+                .AddScoped<ITicketActivityService, TicketActivityService>()
+                .AddScoped<IMembershipChecker, MembershipChecker>();
 
         services.AddScoped<SystemAdminSeeder>();
         services.AddScoped<IDatabaseSeeder, DatabaseSeederService>();

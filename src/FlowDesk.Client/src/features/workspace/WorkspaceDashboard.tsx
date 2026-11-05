@@ -8,6 +8,7 @@ import {
 } from "@/stores/useWorkspaceContext";
 import Sidebar from "@/components/Sidebar";
 import RoleBadge from "@/features/workspace/components/RoleBadge";
+import { useNotificationHub } from "@/hook/Realtime/useNotificationHub";
 
 const WorkspaceDashboard = () => {
   const { workspaceId } = useParams();
@@ -15,6 +16,9 @@ const WorkspaceDashboard = () => {
   const status = useWorkspaceStatus();
   const error = useWorkspaceError();
   const role = useMyWorkspaceRole();
+
+  //establishes a realtime connection to the notification hub for the current workspace
+  useNotificationHub(workspaceId ?? "");
 
   useEffect(() => {
     if (workspaceId) enterWorkspace(workspaceId);

@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using FlowDesk.Application.Interfaces;
+using FlowDesk.Infrastructure.Identity.Context;
 using Microsoft.AspNetCore.Http;
 
 namespace FlowDesk.Infrastructure.Identity.Middleware;
@@ -9,6 +10,7 @@ public class CurrentUserMiddleware(RequestDelegate next)
 
     public async Task InvokeAsync(HttpContext context, ICurrentUserContext currentUser)
     {
+
         if(context.User.Identity?.IsAuthenticated == true)
         {
             var userIdValue = context.User.FindFirstValue(ClaimTypes.NameIdentifier);

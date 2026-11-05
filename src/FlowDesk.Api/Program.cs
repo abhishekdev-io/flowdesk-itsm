@@ -5,6 +5,7 @@ using FlowDesk.Infrastructure.Identity.Middleware;
 using FlowDesk.Application.Interfaces;
 using System.Text.Json.Serialization;
 using Serilog;
+using FlowDesk.Api.Hubs;
 
 Log.Logger = new LoggerConfiguration() 
     .MinimumLevel.Information()
@@ -34,6 +35,7 @@ builder.Services.AddControllers()
 builder.Services.AddApi(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerDocumentation();
+builder.Services.AddSignalR();
 
 var flowDeskOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
@@ -94,6 +96,7 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 app.MapControllers();
+app.MapHub<NotificationHub>("/api/hubs/notifications");
 
 try
 {

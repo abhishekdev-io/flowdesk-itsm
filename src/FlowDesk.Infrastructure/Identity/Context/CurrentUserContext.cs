@@ -11,6 +11,7 @@ public class CurrentUserContext : ICurrentUserContext
 
     public void SetUserContext(Guid userId, string email, bool isAuthenticated, bool isSystemAdmin)
     {
+        
         UserId = userId;
         Email = email;
         IsAuthenticated = isAuthenticated;

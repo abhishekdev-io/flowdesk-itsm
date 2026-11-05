@@ -1,3 +1,4 @@
+using FlowDesk.Application.Interfaces.Notifications;
 using FlowDesk.Application.Interfaces;
 using FlowDesk.Domain.Notifications;
 using FlowDesk.Domain.Tickets.Events;
