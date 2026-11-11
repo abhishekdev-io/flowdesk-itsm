@@ -36,7 +36,7 @@ public class AddMemberTest(IntegrationTestWebAppFactory factory)
         );
 
         //Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/members", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/members", command);
 
         //Assert
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.Created);

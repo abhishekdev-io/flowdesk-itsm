@@ -35,7 +35,7 @@ public class GetTicketByIdTest(IntegrationTestWebAppFactory factory)
         });
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -71,7 +71,7 @@ public class GetTicketByIdTest(IntegrationTestWebAppFactory factory)
         });
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -91,7 +91,7 @@ public class GetTicketByIdTest(IntegrationTestWebAppFactory factory)
         });
         
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}");
         
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -118,7 +118,7 @@ public class GetTicketByIdTest(IntegrationTestWebAppFactory factory)
         });
         
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}");
         
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -139,7 +139,7 @@ public class GetTicketByIdTest(IntegrationTestWebAppFactory factory)
         var nonExistentTicketId = Guid.NewGuid();
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/{nonExistentTicketId}");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{nonExistentTicketId}");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);

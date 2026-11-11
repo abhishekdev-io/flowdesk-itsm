@@ -30,7 +30,7 @@ public class CreateAssetCategoryTest(IntegrationTestWebAppFactory factory)
         );
 
         // Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/categories", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/categories", command);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);

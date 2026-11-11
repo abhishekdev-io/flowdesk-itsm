@@ -6,6 +6,7 @@ using FlowDesk.Application.Interfaces;
 using System.Text.Json.Serialization;
 using Serilog;
 using FlowDesk.Api.Hubs;
+using Asp.Versioning;
 
 Log.Logger = new LoggerConfiguration() 
     .MinimumLevel.Information()
@@ -35,6 +36,25 @@ builder.Services.AddControllers()
 builder.Services.AddApi(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerDocumentation();
+
+builder.Services
+    .AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new ApiVersion(1, 0);
+
+        options.ReportApiVersions = true;
+
+        options.ApiVersionReader =
+            new UrlSegmentApiVersionReader();
+    })
+    .AddMvc()
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    })
+    .AddOpenApi();
+    
 builder.Services.AddSignalR();
 
 var flowDeskOrigins = builder.Configuration
@@ -96,7 +116,9 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 app.MapControllers();
-app.MapHub<NotificationHub>("/api/hubs/notifications");
+app.MapOpenApi().WithDocumentPerVersion();
+
+app.MapHub<NotificationHub>("/api/v1/hubs/notifications");
 
 try
 {

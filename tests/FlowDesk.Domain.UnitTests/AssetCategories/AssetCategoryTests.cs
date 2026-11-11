@@ -14,13 +14,13 @@ public class AssetCategoryTests
     [InlineData("Laptops", "a6b7c8d9-e0f1-2345-6789-abcdef012345", "   ", "Prefix is required.")]
     [InlineData("Laptops", "a6b7c8d9-e0f1-2345-6789-abcdef012345", null, "Prefix is required.")]
     public void Create_WithInvalidParameters_ShouldThrowDomainException(
-        string name, string workspaceIdString, string prefix, string expectedErrorMessage)
+        string name, string workspaceIdString, string? prefix, string expectedErrorMessage)
     {
         // Arrange
         var workspaceId = Guid.Parse(workspaceIdString);
 
         // Act
-        Action act = () => AssetCategory.Create(name, workspaceId, prefix);
+        Action act = () => AssetCategory.Create(name, workspaceId, prefix!);
 
         // Assert
         act.Should().Throw<DomainException>().WithMessage(expectedErrorMessage);

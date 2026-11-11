@@ -21,12 +21,14 @@ using FlowDesk.Application.Features.Tickets.TicketComments.DeleteComment;
 using FlowDesk.Application.Features.Tickets.TicketComments.RestoreComment;
 using FlowDesk.Application.Features.Tickets.GetTicketActivities;
 using FlowDesk.Application.Features.Tickets.GetSlaDashboard;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/workspaces/{workspaceId}/tickets")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/workspaces/{workspaceId}/tickets")]
 public class TicketsController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

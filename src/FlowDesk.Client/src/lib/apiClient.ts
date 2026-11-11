@@ -3,7 +3,7 @@ import axios from "axios";
 import { refreshToken } from "../services/authServices";
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "https://localhost:7120/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://localhost:7120/api/v1",
   headers: {
     "Content-Type": "application/json",
   },

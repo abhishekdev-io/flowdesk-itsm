@@ -39,7 +39,7 @@ public class GetAssetByIdTest(IntegrationTestWebAppFactory factory)
         });
 
         // Act
-        var response = await HttpClient.GetAsync($"api/workspaces/{workspace.Id}/assets/{asset.Id}");
+        var response = await HttpClient.GetAsync($"api/v1/workspaces/{workspace.Id}/assets/{asset.Id}");
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -76,7 +76,7 @@ public class GetAssetByIdTest(IntegrationTestWebAppFactory factory)
         });
 
         // Act
-        var response = await HttpClient.GetAsync($"api/workspaces/{workspace.Id}/assets/{asset.Id}");
+        var response = await HttpClient.GetAsync($"api/v1/workspaces/{workspace.Id}/assets/{asset.Id}");
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);

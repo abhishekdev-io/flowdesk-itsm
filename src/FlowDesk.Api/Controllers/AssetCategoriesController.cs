@@ -6,12 +6,14 @@ using FlowDesk.Application.Features.AssetCategories.GetAssetCategory;
 using FlowDesk.Application.Features.AssetCategories.RestoreAssetCategory;
 using FlowDesk.Application.Features.AssetCategories.ListDeactivatedAssetCategories;
 using FlowDesk.Api.Dto.AssetCategory;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
  
 [Authorize]
 [ApiController]
-[Route("api/workspaces/{workspaceId}/categories")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/workspaces/{workspaceId}/categories")]
 [Produces("application/json")]
 [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
 [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(ProblemDetails))]

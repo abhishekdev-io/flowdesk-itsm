@@ -46,7 +46,7 @@ public class UpdateAssetTest(IntegrationTestWebAppFactory factory)
         );
 
         // Act
-        var response = await HttpClient.PutAsJsonAsync($"/api/workspaces/{workspace.Id}/assets/{asset.Id}", command);
+        var response = await HttpClient.PutAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/assets/{asset.Id}", command);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
@@ -83,7 +83,7 @@ public class UpdateAssetTest(IntegrationTestWebAppFactory factory)
         });
 
         // Act
-        var response = await HttpClient.PatchAsync($"/api/workspaces/{workspace.Id}/assets/{asset.Id}/decommission", null);
+        var response = await HttpClient.PatchAsync($"/api/v1/workspaces/{workspace.Id}/assets/{asset.Id}/decommission", null);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);

@@ -5,11 +5,13 @@ using FlowDesk.Api.Dto.Auth;
 using FlowDesk.Application.Features.Auth.RefreshToken;
 using Microsoft.Extensions.Options;
 using FlowDesk.Infrastructure.Identity.Config;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
 
 [ApiController]
-[Route("api/auth")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/auth")]
 [Produces("application/json")]
 public class AuthController(IMediator mediator, IOptions<JwtSettings> jwtOptions, IOptions<RefreshTokenCookieSettings> cookieOptions) : ControllerBase
 {

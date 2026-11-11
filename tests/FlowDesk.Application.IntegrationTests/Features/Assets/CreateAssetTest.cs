@@ -39,7 +39,7 @@ public class CreateAssetTest(IntegrationTestWebAppFactory factory)
         );
 
         // 3. Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/assets", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/assets", command);
 
         // 4. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -67,7 +67,7 @@ public class CreateAssetTest(IntegrationTestWebAppFactory factory)
         );
 
         // 2. Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/assets", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/assets", command);
 
         // 3. Assert 
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);

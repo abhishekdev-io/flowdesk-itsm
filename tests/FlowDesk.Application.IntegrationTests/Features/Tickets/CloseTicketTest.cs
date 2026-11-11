@@ -48,7 +48,7 @@ public class CloseTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/close", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/close", command);
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
@@ -87,7 +87,7 @@ public class CloseTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/close", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/close", command);
         
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -113,7 +113,7 @@ public class CloseTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{nonExistentTicketId}/close", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{nonExistentTicketId}/close", command);
         
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);

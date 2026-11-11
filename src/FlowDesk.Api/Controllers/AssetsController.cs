@@ -9,12 +9,14 @@ using FlowDesk.Application.Features.Assets.ReturnAssetFromMaintenance;
 using FlowDesk.Application.Features.Assets.UpdateAsset;
 using FlowDesk.Application.Common.Pagination;
 using FlowDesk.Application.Features.Assets.AssetStats;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
  
 [Authorize]
 [ApiController]
-[Route("api/workspaces/{workspaceId}/assets")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/workspaces/{workspaceId}/assets")]
 public class AssetsController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

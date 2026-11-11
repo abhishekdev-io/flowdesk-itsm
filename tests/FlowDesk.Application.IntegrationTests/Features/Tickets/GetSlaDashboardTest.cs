@@ -41,7 +41,7 @@ public class GetSlaDashboardTest(IntegrationTestWebAppFactory factory)
         });
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/sla-dashboard");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/sla-dashboard");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -58,7 +58,7 @@ public class GetSlaDashboardTest(IntegrationTestWebAppFactory factory)
         var workspace = await TestSeeder.WorkspaceAsync(name: "Unrelated Workspace");
 
         // 2. Act 
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/sla-dashboard");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/sla-dashboard");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -77,7 +77,7 @@ public class GetSlaDashboardTest(IntegrationTestWebAppFactory factory)
         );
 
         // 2. Act 
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets/sla-dashboard");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets/sla-dashboard");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);

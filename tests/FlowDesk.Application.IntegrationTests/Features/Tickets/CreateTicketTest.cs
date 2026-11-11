@@ -35,7 +35,7 @@ public class CreateTicketTest(IntegrationTestWebAppFactory factory)
         );
 
         //  Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/tickets", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/tickets", command);
 
         //  Assert - status code
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -69,7 +69,7 @@ public class CreateTicketTest(IntegrationTestWebAppFactory factory)
         );
 
         //  Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/tickets", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/tickets", command);
 
         //  Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -97,7 +97,7 @@ public class CreateTicketTest(IntegrationTestWebAppFactory factory)
         );
 
         //Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/tickets", command);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/tickets", command);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
 
         var result = await response.Content.ReadFromJsonAsync<CreateTicketResponse>();

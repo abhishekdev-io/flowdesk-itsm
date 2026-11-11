@@ -2,12 +2,14 @@ using FlowDesk.Application.Features.Users.ListUsers;
 using FlowDesk.Application.Common.Dto;
 using FlowDesk.Application.Features.Users.GetUser;
 using FlowDesk.Application.Features.Users.GetCurrentUser;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/users")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/users")]
 public class UsersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

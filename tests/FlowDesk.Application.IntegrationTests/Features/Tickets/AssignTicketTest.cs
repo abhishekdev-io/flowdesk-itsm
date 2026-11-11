@@ -43,7 +43,7 @@ public class AssignTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/assign", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/assign", command);
 
         // 3. Assert - status code
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
@@ -76,7 +76,7 @@ public class AssignTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act 
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/assign", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/assign", command);
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -110,7 +110,7 @@ public class AssignTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act 
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/assign", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/assign", command);
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -137,7 +137,7 @@ public class AssignTicketTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.PatchAsJsonAsync(
-            $"/api/workspaces/{workspace.Id}/tickets/{nonExistentTicketId}/assign", command);
+            $"/api/v1/workspaces/{workspace.Id}/tickets/{nonExistentTicketId}/assign", command);
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);

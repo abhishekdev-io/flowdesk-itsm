@@ -44,7 +44,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
         });
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -89,7 +89,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
         });
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -140,7 +140,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
         await dbContext.SaveChangesAsync();
 
         // 2. Act
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -190,7 +190,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.GetAsync(
-            $"/api/workspaces/{workspace.Id}/tickets?Status={TicketStatus.Closed}");
+            $"/api/v1/workspaces/{workspace.Id}/tickets?Status={TicketStatus.Closed}");
 
         // 3. Assert
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
@@ -226,7 +226,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
 
         // 2. Act
         var response = await HttpClient.GetAsync(
-            $"/api/workspaces/{workspace.Id}/tickets?Page=2&PageSize=2");
+            $"/api/v1/workspaces/{workspace.Id}/tickets?Page=2&PageSize=2");
 
         // 3. Assert
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
@@ -246,7 +246,7 @@ public class ListTicketsTest(IntegrationTestWebAppFactory factory)
         var workspace = await TestSeeder.WorkspaceAsync(name: "Unrelated Workspace");
 
         // 2. Act 
-        var response = await HttpClient.GetAsync($"/api/workspaces/{workspace.Id}/tickets");
+        var response = await HttpClient.GetAsync($"/api/v1/workspaces/{workspace.Id}/tickets");
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);

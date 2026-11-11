@@ -22,7 +22,7 @@ public class CreateWorkspaceTest(IntegrationTestWebAppFactory factory)
         );
 
         // 2. Act
-        var response = await HttpClient.PostAsJsonAsync("/api/workspaces", command);
+        var response = await HttpClient.PostAsJsonAsync("/api/v1/workspaces", command);
 
         // 3. Assert - response 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -58,7 +58,7 @@ public class CreateWorkspaceTest(IntegrationTestWebAppFactory factory)
         );
 
         // 2. Act
-        var response = await HttpClient.PostAsJsonAsync("/api/workspaces", command);
+        var response = await HttpClient.PostAsJsonAsync("/api/v1/workspaces", command);
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Conflict);

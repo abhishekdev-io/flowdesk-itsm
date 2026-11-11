@@ -42,7 +42,7 @@ public static class AuthExtension
                         var path = context.HttpContext.Request.Path;
 
                         if (!string.IsNullOrEmpty(accessToken) &&
-                            path.StartsWithSegments("/api/hubs/notifications"))
+                            path.StartsWithSegments("/api/v1/hubs/notifications"))
                         {
                             context.Token = accessToken;
                         }

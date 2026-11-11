@@ -2,12 +2,14 @@ using FlowDesk.Application.Features.SystemAdmin.CreateSystemAdmin;
 using FlowDesk.Application.Features.SystemAdmin.RestoreWorkspace;
 using FlowDesk.Application.Features.SystemAdmin.ListDeletedWorkspaces;
 using FlowDesk.Api.Dto.SystemAdmin;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
 
 [Authorize] 
 [ApiController]
-[Route("api/systemadmin")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/systemadmin")]
 public class SystemAdminController(IMediator mediator) : ControllerBase
 {
     [HttpPost("register")]

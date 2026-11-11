@@ -3,12 +3,14 @@ using FlowDesk.Application.Features.Notifications.MarkAsRead;
 using FlowDesk.Application.Common.Pagination;
 using FlowDesk.Api.Dto.Notification;
 using FlowDesk.Application.Features.Notifications.DeleteNotification;
+using Asp.Versioning;
 
 namespace FlowDesk.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/workspaces/{workspaceId}/notifications")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/workspaces/{workspaceId}/notifications")]
 public class UserNotificationsController(IMediator mediator) : ControllerBase
 {
     [HttpGet]

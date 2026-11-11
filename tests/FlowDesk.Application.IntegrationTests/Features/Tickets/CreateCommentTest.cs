@@ -31,7 +31,7 @@ public class CreateCommentTest(IntegrationTestWebAppFactory factory)
             );
         
         // Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/comments", request);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/comments", request);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Created);
@@ -67,7 +67,7 @@ public class CreateCommentTest(IntegrationTestWebAppFactory factory)
             );
 
         // 2. Act
-        var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/tickets/{ticket.Id}/comments", request);
+        var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/tickets/{ticket.Id}/comments", request);
 
         // 3. Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
