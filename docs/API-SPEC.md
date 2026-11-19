@@ -37,15 +37,15 @@ sequenceDiagram
     participant API as FlowDesk API (v1)
     participant DB as PostgreSQL 17
 
-    Client->>Nginx: POST /api/v1/auth/login {email, password}
+    Client->>Nginx: POST /api/v1/auth/login (email, password)
     Nginx->>API: Proxy request to http://api:8080
-    API->>DB: Validate credentials & generate tokens
-    DB-->>API: User details & permissions
+    API->>DB: Validate credentials and generate tokens
+    DB-->>API: User details and permissions
     API->>DB: Store SHA-256 hash of Refresh Token
-    Note over API,Client: Set-Cookie: refreshToken=...; HttpOnly; Secure; SameSite=None; Path=/api/v1/auth
-    API-->>Client: 200 OK { accessToken, user } (RefreshToken stripped)
+    Note over API,Client: Set-Cookie: refreshToken (HttpOnly, Secure, SameSite=None, Path=/api/v1/auth)
+    API-->>Client: 200 OK (accessToken, user) [RefreshToken stripped]
     
-    Note over Client,API: Subsequent requests use: Authorization: Bearer <accessToken>
+    Note over Client,API: Subsequent requests use Authorization: Bearer token
 ```
 
 ### Endpoints

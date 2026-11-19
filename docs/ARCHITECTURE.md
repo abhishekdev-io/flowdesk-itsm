@@ -210,8 +210,8 @@ sequenceDiagram
     Handler->>Svc: CreateAsync(workspaceId, recipientId, ...)
     Svc->>Svc: Persist UserNotification entity to DB
     Svc->>Hub: RealtimePublisher.SendToUserAsync(...)
-    Hub->>Recipient: WebSocket push: "NotificationReceived" { NotificationDto }
-    Note over Recipient: React Client updates unread badge & displays toast
+    Hub->>Recipient: WebSocket push NotificationReceived (NotificationDto)
+    Note over Recipient: React Client updates unread badge and displays toast
 ```
 
 ### Architectural Details:
