@@ -77,7 +77,7 @@ public async Task Handle_WithValidCommand_ShouldPassBehaviorsAndPersistTicket()
     );
 
     // Act: Send request through HTTP endpoint
-    var response = await HttpClient.PostAsJsonAsync($"/api/workspaces/{workspace.Id}/tickets", command);
+    var response = await HttpClient.PostAsJsonAsync($"/api/v1/workspaces/{workspace.Id}/tickets", command);
 
     // Assert: Verify HTTP status and check DB state directly
     response.StatusCode.Should().Be(HttpStatusCode.Created);

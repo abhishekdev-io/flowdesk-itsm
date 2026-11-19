@@ -10,17 +10,17 @@ All domain events inherit from `IDomainEvent` and are dispatched using MediatR's
 
 | Domain Event | Triggering Operation | Consumer (Application Layer Handler) | Action Taken by Consumer |
 | :--- | :--- | :--- | :--- |
-| **`TicketCreatedDomainEvent`** | `Ticket.Create()` | `TicketCreatedActivityLogHandler`<br>`TicketCreatedNotificationHandler` | Logs creation activity on the ticket.<br>Sends notification to the creator. |
+| **`TicketCreatedDomainEvent`** | `Ticket.Create()` | `TicketCreatedActivityLogHandler`<br>`TicketCreatedNotificationHandler` | Logs creation activity on the ticket.<br>Persists notification and broadcasts real-time SignalR alert to workspace admins & agents. |
 | **`TicketUpdatedDomainEvent`** | `Ticket.Update()` | `TicketUpdatedActivityLogHandler` | Logs a comparison of old vs. new titles and descriptions. |
-| **`TicketAssignDomainEvent`** | `Ticket.Assign()` | `TicketAssignActivityLogHandler`<br>`TicketAssignNotificationHandler` | Logs assignment activity.<br>Dispatches assignment notification to the agent. |
-| **`TicketUnAssignDomainEvent`** | `Ticket.UnAssign()` | `TicketUnAssignActivityLogHandler`<br>`TicketUnAssignNotificationHandler` | Logs unassignment activity.<br>Notifies the unassigned agent. |
-| **`TicketStatusChangedDomainEvent`** | `Ticket.Resolve()`, `Ticket.Close()`, `Ticket.Reopen()` | `TicketStatusChangedActivityLogHandler`<br>`TicketStatusChangedNotificationHandler` | Logs state transition descriptions (e.g., reopened, resolved).<br>Notifies the ticket owner of state changes. |
-| **`TicketPriorityChangedDomainEvent`**| `Ticket.ChangePriority()` | `TicketPriorityActivityLogHandler`<br>`TicketPriorityNotificationHandler` | Logs priority transition details.<br>Notifies the assigned agent or owner. |
+| **`TicketAssignDomainEvent`** | `Ticket.Assign()` | `TicketAssignActivityLogHandler`<br>`TicketAssignNotificationHandler` | Logs assignment activity.<br>Persists notification and pushes real-time SignalR alert to the assigned agent. |
+| **`TicketUnAssignDomainEvent`** | `Ticket.UnAssign()` | `TicketUnAssignActivityLogHandler`<br>`TicketUnAssignNotificationHandler` | Logs unassignment activity.<br>Persists notification and pushes real-time SignalR alert to the unassigned agent. |
+| **`TicketStatusChangedDomainEvent`** | `Ticket.Resolve()`, `Ticket.Close()`, `Ticket.Reopen()` | `TicketStatusChangedActivityLogHandler`<br>`TicketStatusChangedNotificationHandler` | Logs state transition descriptions (e.g., reopened, resolved).<br>Persists notification and pushes real-time SignalR update to the ticket owner. |
+| **`TicketPriorityChangedDomainEvent`**| `Ticket.ChangePriority()` | `TicketPriorityActivityLogHandler`<br>`TicketPriorityNotificationHandler` | Logs priority transition details.<br>Persists notification and pushes real-time SignalR update to the assigned agent or owner. |
 | **`TicketTypeChangedDomainEvent`** | `Ticket.ChangeType()` | `TicketTypeChangedActivityLogHandler` | Logs ticket type transition details. |
 | **`TicketArchivedDomainEvent`** | `Ticket.Archive()`, `Ticket.UnArchive()` | `TicketArchivedActivityLogHandler` | Logs archival or restoration audit trail. |
 | **`TicketCommentAddedDomainEvent`** | `Ticket.AddComment()` | `TicketCommentAddedActivityLogHandler` | Logs comment creation activity on the ticket thread. |
-| **`WorkspaceMemberRemovedDomainEvent`**| `Workspace.RemoveMember()` | `WorkspaceMemberRemovedNotificationHandler` | Dispatches removal notification to the user. |
-| **`WorkspaceRoleChangedDomainEvent`** | `Workspace.ChangeMemberRole()` | `WorkspaceRoleChangedNotificationHandler` | Dispatches role modification notification to the user. |
+| **`WorkspaceMemberRemovedDomainEvent`**| `Workspace.RemoveMember()` | `WorkspaceMemberRemovedNotificationHandler` | Persists notification and pushes real-time SignalR removal notice to the member. |
+| **`WorkspaceRoleChangedDomainEvent`** | `Workspace.ChangeMemberRole()` | `WorkspaceRoleChangedNotificationHandler` | Persists notification and pushes real-time SignalR role update notice to the member. |
 
 ---
 

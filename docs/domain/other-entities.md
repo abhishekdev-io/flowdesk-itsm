@@ -23,7 +23,7 @@ This document covers supporting domain entities and simple aggregates that conta
 
 ## 2. User Notification (`UserNotification`)
 
-`UserNotification` tracks notifications dispatched to specific workspace members. It inherits from `Entity<Guid>`.
+`UserNotification` tracks notifications dispatched to specific workspace members. It inherits from `Entity<Guid>`. In the full-stack architecture, notifications are persisted to the PostgreSQL database and immediately broadcast in real time to connected browser clients over SignalR WebSockets targeted at user-specific groups (`workspace:{workspaceId}:user:{userId}`).
 
 ### Invariants & Rules
 *   **Mandatory Fields**: Throws `DomainException` if `WorkspaceId` or `RecipientUserId` is empty, or if `Title` or `Body` is blank.
@@ -37,14 +37,15 @@ This document covers supporting domain entities and simple aggregates that conta
 
 ## 3. Refresh Token (`RefreshToken`)
 
-`RefreshToken` manages session persistence and revocation for identity services. It inherits from `Entity<Guid>`.
+`RefreshToken` manages session persistence and revocation for identity services. It inherits from `Entity<Guid>`. Tokens are delivered to the frontend strictly inside `HttpOnly`, `Secure`, `SameSite` cookies with restricted path scoping (`/api/v1/auth`), completely eliminating JavaScript XSS exfiltration risks.
 
 ### Invariants & Rules
 *   **Expiration Check**: Evaluates if the token is expired by comparing `ExpiresAt` to `DateTime.UtcNow`.
 *   **Revocation Check**: Once `RevokedAt` is populated, the token is considered inactive.
-*   **Session Linkage**: Can track the successor token using `ReplacedByTokenId` to trace the refresh token rotation chain.
+*   **Session Linkage**: Tracks the successor token using `ReplacedByTokenId` to trace the refresh token rotation chain.
+*   **Breach Detection**: If an already revoked token is presented, the system revokes all tokens for that user account to stop replay attacks.
 
 ### State Transitions
-*   **`Create`**: Generates a new refresh token with a token hash, user ID, and expiration date.
+*   **`Create`**: Generates a new refresh token with a cryptographically secure SHA-256 token hash, user ID, and expiration date.
 *   **`Revoke`**: Marks the token as revoked by setting `RevokedAt = DateTime.UtcNow`, recording the `RevokedReason`, and mapping any replacement token IDs.
  
