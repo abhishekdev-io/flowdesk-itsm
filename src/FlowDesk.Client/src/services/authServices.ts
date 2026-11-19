@@ -97,7 +97,7 @@ export const logoutUser = async (): Promise<void> => {
 };
 
 const refreshClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "https://localhost:7120/api/v1",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
   timeout: 10000,
 });

@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import { Button } from "../ui/button";
 import { useIsLoggedIn } from "@/stores/useAuth";
 import { UserMenu } from "./UserMenu";
-import FlowDeskIcon from "../FlowdeskIcon";
+import FlowDeskIcon from "../FlowDeskIcon";
 import { Moon, Sun } from "lucide-react";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>

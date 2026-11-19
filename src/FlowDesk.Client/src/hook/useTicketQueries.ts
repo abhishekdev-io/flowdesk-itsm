@@ -6,7 +6,6 @@ import type {
   PriorityRequest,
   TicketFilterParams,
   TypeRequest,
-  UnassignTicketRequest,
   UpdateTicketCommentRequest,
   UpdateTicketRequest,
 } from "@/types/ticket.types";
@@ -162,8 +161,7 @@ export const useUnAssignTicketUser = (
 ) => {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (payload: UnassignTicketRequest) =>
-      ticketServices.unAssignUser(workspaceId, ticketId, payload),
+    mutationFn: () => ticketServices.unAssignUser(workspaceId, ticketId),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ticketKeys.list(workspaceId) });
       qc.invalidateQueries({ queryKey: ticketKeys.detail(workspaceId, ticketId) });

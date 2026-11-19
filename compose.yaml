@@ -1,0 +1,62 @@
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: flowdesk-db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flowdesk-net
+
+  api:
+    build:
+      context: .
+      dockerfile: src/FlowDesk.Api/Dockerfile
+    container_name: flowdesk-api
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=${POSTGRES_DB:-flowdesk};Username=${POSTGRES_USER:-flowdesk_user};Password=${POSTGRES_PASSWORD:-flowdesk_password}
+      - JWT__SecretKey=${JWT_SECRET_KEY}
+      - SystemAdmin__Email=${SYSTEM_ADMIN_EMAIL}
+      - SystemAdmin__Username=${SYSTEM_ADMIN_USERNAME}
+      - SystemAdmin__Password=${SYSTEM_ADMIN_PASSWORD}
+      - Cors__AllowedOrigins__0=http://localhost
+    networks:
+      - flowdesk-net
+
+  web:
+    build:
+      context: ./src/FlowDesk.Client
+      dockerfile: Dockerfile
+    container_name: flowdesk-web
+    restart: always
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - flowdesk-net
+
+volumes:
+  postgres_data:
+
+networks:
+  flowdesk-net:
+    driver: bridge

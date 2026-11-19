@@ -10,7 +10,7 @@ import {
   Circle,
 } from "lucide-react";
 import { NavLink } from "react-router";
-import FlowDeskIcon from "@/components/FlowdeskIcon";
+import FlowDeskIcon from "@/components/FlowDeskIcon";
 
 function GithubIcon({ className }: { className?: string }) {
   return (

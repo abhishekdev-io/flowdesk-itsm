@@ -7,16 +7,21 @@ using System.Text.Json.Serialization;
 using Serilog;
 using FlowDesk.Api.Hubs;
 using Asp.Versioning;
+using FlowDesk.Infrastructure.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
-Log.Logger = new LoggerConfiguration() 
+Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.Console()
     .CreateBootstrapLogger();
-    
+
 var builder = WebApplication.CreateBuilder(args);
 
+// // Configure Serilog as the application's logging provider.
 builder.Host.UseSerilog((context, services, config) => config
-    .ReadFrom.Configuration(context.Configuration)  
+    .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext()
     .WriteTo.Console(outputTemplate:
         "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}")
@@ -37,11 +42,10 @@ builder.Services.AddApi(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerDocumentation();
 
+// Setting up Api versioning
 builder.Services
     .AddApiVersioning(options =>
     {
-        options.DefaultApiVersion = new ApiVersion(1, 0);
-
         options.ReportApiVersions = true;
 
         options.ApiVersionReader =
@@ -54,12 +58,20 @@ builder.Services
         options.SubstituteApiVersionInUrl = true;
     })
     .AddOpenApi();
-    
+
 builder.Services.AddSignalR();
 
+// Add health checks
+builder.Services
+    .AddHealthChecks()
+    .AddDbContextCheck<ApplicationDbContext>(
+        name: "postgres",
+        tags: ["ready"]);
+
+// Configure CORS
 var flowDeskOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
-    .Get<string[]>() ?? ["https://localhost:5173"]; 
+    .Get<string[]>() ?? ["https://localhost:5173"];
 
 builder.Services.AddCors(options =>
 {
@@ -68,11 +80,38 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(flowDeskOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials(); 
+              .AllowCredentials();
     });
 });
 
 var app = builder.Build();
+
+// Configure health check endpoints
+// Liveness: checks whether the API is running.
+app.MapHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = _ => false
+});
+
+// Readiness: checks whether PostgreSQL is accessible.
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready")
+});
+
+// Configure forwarded headers to handle reverse proxy scenarios.
+var forwardedHeadersOptions = new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+};
+
+// Allow Docker internal subnet proxying
+forwardedHeadersOptions.KnownIPNetworks.Clear();
+forwardedHeadersOptions.KnownProxies.Clear();
+
+app.UseForwardedHeaders(forwardedHeadersOptions);
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -81,16 +120,35 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (!app.Environment.IsDevelopment())
+// Uncomment the following lines to enable HTTPS redirection in non-development environments
+// if (!app.Environment.IsDevelopment())
+// {
+//     app.UseHttpsRedirection();
+// }
+
+
+// Apply pending EF Core migrations
+await using (var scope = app.Services.CreateAsyncScope())
 {
-    app.UseHttpsRedirection();
+    try
+    {
+        var context = scope.ServiceProvider
+            .GetRequiredService<ApplicationDbContext>();
+
+        await context.Database.MigrateAsync();
+
+        Log.Information("Database migrations applied successfully.");
+    }
+    catch (Exception ex)
+    {
+        Log.Fatal(ex, "An error occurred while applying database migrations.");
+        throw;
+    }
 }
 
-if (app.Environment.IsDevelopment())
+// Seed the database with initial data (Runs on both Dev and Production)
+using (var scope = app.Services.CreateScope())
 {
-    app.UseDeveloperExceptionPage();
-
-    using var scope = app.Services.CreateScope();
     try
     {
         var seeder = scope.ServiceProvider.GetRequiredService<IDatabaseSeeder>();
@@ -100,7 +158,6 @@ if (app.Environment.IsDevelopment())
     {
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while running the automated database seeding engine.");
-
         throw;
     }
 }
@@ -131,6 +188,6 @@ catch (Exception ex)
 }
 finally
 {
-    Log.CloseAndFlush(); 
+    Log.CloseAndFlush();
 }
 

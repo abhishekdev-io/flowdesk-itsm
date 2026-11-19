@@ -94,7 +94,7 @@ const TicketAssignMenu = ({
               <DropdownMenuItem
                 className="text-destructive focus:text-destructive gap-2 text-xs cursor-pointer"
                 onClick={() =>
-                  unassignUser({ userId: ticket.assignedToUser!.userId })
+                  unassignUser()
                 }
               >
                 <UserMinus className="h-3.5 w-3.5" />
