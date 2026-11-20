@@ -1,0 +1,75 @@
+name: UML diff
+
+# On every pull request: find the endpoints whose request flow changed and post
+# a comment with a summary and one sequence diagram per endpoint.
+#
+# Needs one repository secret:
+#   UML_PACKAGE_URL  the https address of the PrettyGood.Uml .nupkg file
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  SOLUTION: FlowDesk.slnx
+
+jobs:
+  uml-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install Pretty Good UML
+        env:
+          UML_PACKAGE_URL: ${{ secrets.UML_PACKAGE_URL }}
+        run: |
+          if [ -z "$UML_PACKAGE_URL" ]; then
+            echo "::error::Add the repository secret UML_PACKAGE_URL (address of the .nupkg file)."
+            exit 1
+          fi
+          mkdir -p "$RUNNER_TEMP/uml-feed"
+          curl -fsSL "$UML_PACKAGE_URL" -o "$RUNNER_TEMP/uml-feed/$(basename "${UML_PACKAGE_URL%%\?*}")"
+          dotnet tool install PrettyGood.Uml --tool-path "$RUNNER_TEMP/uml-tool" --add-source "$RUNNER_TEMP/uml-feed"
+
+      - name: Restore the solution
+        run: dotnet restore "$SOLUTION"
+
+      - name: Compare with the base branch
+        run: >
+          "$RUNNER_TEMP/uml-tool/pretty-good-uml" diff
+          --project "$SOLUTION"
+          --base "origin/${{ github.base_ref }}"
+          --out "$RUNNER_TEMP/uml-report.md"
+
+      - name: Show the report in the run summary
+        run: cat "$RUNNER_TEMP/uml-report.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Post or update the pull request comment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const body = fs.readFileSync(path.join(process.env.RUNNER_TEMP, 'uml-report.md'), 'utf8');
+            const marker = '<!-- pretty-good-uml -->';
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number });
+            const mine = comments.find(c => c.body && c.body.includes(marker));
+            if (mine) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: mine.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
