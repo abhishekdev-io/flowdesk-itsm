@@ -8,7 +8,8 @@ import {
 } from "../ui/dropdown-menu";
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { useAuth } from "@/stores/useAuth";
-import { useAvatarUrl } from "@/hook/useAvatarUrl";
+import { getInitials, useAvatarUrl } from "@/hook/useAvatarUrl";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const UserMenu = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const UserMenu = () => {
   const user = auth.status === "authenticated" ? auth.user : null;
 
   const avatarSrc = useAvatarUrl(user?.avatarUrl);
-  const initials = user?.username.slice(0, 2).toUpperCase();
+  const initials = getInitials(user?.username);
 
   const handleLogout = async () => {
     await signout();
@@ -31,17 +32,16 @@ export const UserMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer flex items-center gap-2 rounded-md border border-border pl-1 pr-3 py-1 hover:border-accent transition-colors">
-        {avatarSrc ? (
-          <img
+        <Avatar className="h-6 w-6">
+          <AvatarImage
             src={avatarSrc}
             alt={user.username}
-            className="h-6 w-6 rounded-full object-cover"
+            className="object-cover"
           />
-        ) : (
-          <span className="h-6 w-6 rounded-full bg-(--accent-soft) text-accent text-xs font-semibold flex items-center justify-center">
+          <AvatarFallback className="bg-(--accent-soft) text-accent text-xs font-semibold">
             {initials}
-          </span>
-        )}
+          </AvatarFallback>
+        </Avatar>
         <span className="text-sm text-(--text) font-medium">
           {user.username}
         </span>
@@ -52,17 +52,16 @@ export const UserMenu = () => {
         className="bg-(--bg) border-border text-(--text) w-56"
       >
         <div className="flex items-center gap-3 px-2 py-2">
-          {avatarSrc ? (
-            <img
+          <Avatar className="h-9 w-9">
+            <AvatarImage
               src={avatarSrc}
               alt={user.username}
-              className="h-9 w-9 rounded-full object-cover"
+              className="object-cover"
             />
-          ) : (
-            <span className="h-9 w-9 rounded-full bg-(--accent-soft) text-accent text-sm font-semibold flex items-center justify-center">
+            <AvatarFallback className="bg-(--accent-soft) text-accent text-sm font-semibold">
               {initials}
-            </span>
-          )}
+            </AvatarFallback>
+          </Avatar>
           <div className="flex flex-col overflow-hidden">
             <span className="text-sm font-medium truncate">
               {user.username}

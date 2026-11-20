@@ -3,7 +3,8 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json only to let npm resolve native bindings for the container OS
+COPY package.json ./
 RUN npm install
 
 COPY . .
