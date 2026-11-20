@@ -65,6 +65,12 @@ public sealed class Ticket : AggregateRoot<Guid>
             throw new DomainStateException("Closed tickets cannot be updated.");
     }
 
+    private void EnsureNotArchived()
+    {
+        if (IsArchived)
+            throw new DomainStateException("Archived tickets cannot be changed.");
+    }
+
     public static Ticket Create(
         string title,
         string description,
@@ -123,6 +129,7 @@ public sealed class Ticket : AggregateRoot<Guid>
         )
     {
         EnsureTicketIsEditable();
+        EnsureNotArchived();
 
         var oldTitle = Title;
         var oldDescription = Description;
@@ -147,6 +154,8 @@ public sealed class Ticket : AggregateRoot<Guid>
     {
         if (AssignedToUserId == assignedToUserId)
             return;
+
+        EnsureNotArchived();
 
         if (Status != TicketStatus.Open)
             throw new DomainStateException("Only open tickets can be assigned");
@@ -327,6 +336,7 @@ public sealed class Ticket : AggregateRoot<Guid>
     public void ChangePriority(TicketPriority priority, Guid changedByUserId)
     {
         EnsureTicketIsEditable();
+        EnsureNotArchived();
 
         if (Priority == priority) return;
 
@@ -382,6 +392,9 @@ public sealed class Ticket : AggregateRoot<Guid>
     {
         if (createdBy == Guid.Empty)
             throw new DomainException("Invalid user Id.");
+
+        if (Status == TicketStatus.Closed)
+            throw new DomainStateException("Closed tickets cannot be commented.");
 
         var comment = TicketComment.Create(Id, description, createdBy);
         _comments.Add(comment);        

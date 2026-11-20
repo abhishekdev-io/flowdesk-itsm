@@ -11,10 +11,12 @@ public class CreateCommentCommandHandler(
     IApplicationDbContext context
 ) : IRequestHandler<CreateCommentCommand,Unit>
 {
+    private const int MaxCommentsPerTicket = 200;
+
     public async Task<Unit> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {
 
-        var ticket = await ticketRepository.GetByIdAsync(
+        var ticket = await ticketRepository.GetByIdWithCommentsAsync(
             request.TicketId, 
             request.WorkspaceId, 
             cancellationToken)
@@ -27,6 +29,9 @@ public class CreateCommentCommandHandler(
 
         if (!isAllowed)
         throw new ForbiddenException("Cannot Create Comment for this ticket"); 
+
+        if (ticket.Comments.Count >= MaxCommentsPerTicket)
+            throw new ConflictException("This ticket has reached the maximum number of comments.");
 
         ticket.AddComment(request.Description, user.UserId);
 
