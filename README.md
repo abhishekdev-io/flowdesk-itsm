@@ -200,7 +200,7 @@ The client serves at `http://localhost:5173` with Vite Hot Module Replacement (H
 
 ## Engineering Highlights
 
-Key senior architectural and engineering patterns implemented across the system:
+Key architectural and engineering patterns implemented across the system:
 
 1. **Split-Token Authentication with HttpOnly Cookies & XSS Immunity**:
    Access tokens reside strictly in JavaScript memory (15 min lifespan), while refresh tokens are stored in an `HttpOnly`, `Secure`, `SameSite` cookie restricted to `Path = /api/v1/auth`. The API strips refresh tokens from response JSON payloads. Tokens are persisted as SHA-256 hashes, and presenting a revoked token triggers immediate invalidation of the entire user token family to prevent replay attacks.
